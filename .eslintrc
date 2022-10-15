@@ -1,0 +1,134 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:jest/recommended",
+        "plugin:react/recommended",
+        "plugin:import/typescript",
+        "airbnb",
+        "airbnb/hooks",
+        "prettier"
+    ],
+    "plugins": ["@typescript-eslint", "react", "jest", "prettier", "@next/next", "react-hooks"],
+    "env": {
+        "node": true,
+        "jest": true,
+        "es2021": true,
+        "browser": true
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2021,
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-promise-executor-return": "off",
+        "react/function-component-definition": "off",
+        "@typescript-eslint/member-ordering": "warn",
+        "prettier/prettier": "error",
+        "react/jsx-no-useless-fragment": "off",
+        "react/require-default-props": 0,
+        "jsx-a11y/anchor-is-valid": 0,
+        "import/no-named-as-default-member": 0,
+        "import/no-named-as-default": 0,
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": [
+            "warn",
+            {
+                "additionalHooks": "useRecoilCallback|useRecoilTransaction_UNSTABLE"
+            }
+        ],
+        "strict": [0, "global"],
+        "no-tabs": 0,
+        "no-console": [
+            1,
+            {
+                "allow": ["warn"]
+            }
+        ],
+        "max-len": [
+            2,
+            120,
+            2,
+            {
+                "ignoreUrls": true,
+                "ignoreComments": false,
+                "ignorePattern": "^(import.+|\\s*defaultMessage=(\"|').+(\"|'))$"
+            }
+        ],
+        "no-underscore-dangle": ["error"],
+        "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
+        "no-await-in-loop": 0,
+        "no-param-reassign": [
+            "error",
+            {
+                "props": false
+            }
+        ],
+        "prefer-destructuring": 0,
+        "jest/no-disabled-tests": "error",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/valid-expect": "error",
+        "react/no-unused-state": "error",
+        "react/jsx-props-no-spreading": 0,
+        "react/forbid-prop-types": 0,
+        "import/no-extraneous-dependencies": "off",
+        "import/no-namespace": "error",
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [".tsx", ".jsx"]
+            }
+        ],
+        "react/prop-types": 0,
+        "no-unused-vars": 0,
+        "import/named": 0,
+        "import/prefer-default-export": 0,
+        "import/no-unresolved": 0,
+        "import/extensions": 0,
+        "default-case": 0,
+        "no-use-before-define": 0,
+        "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+        "@typescript-eslint/member-delimiter-style": "error",
+        "@typescript-eslint/type-annotation-spacing": "error",
+        "@typescript-eslint/explicit-function-return-type": 0,
+        "@typescript-eslint/prefer-interface": 0,
+        "@typescript-eslint/no-namespace": "error",
+        "@typescript-eslint/ban-ts-ignore": 0,
+        "@typescript-eslint/ban-ts-comment": 0,
+        "@typescript-eslint/no-var-requires": 0,
+        "@typescript-eslint/no-explicit-any": 0,
+        "@typescript-eslint/explicit-module-boundary-types": 0,
+        "no-useless-constructor": "off",
+        "@typescript-eslint/no-useless-constructor": ["error"],
+        "no-empty-function": "off",
+        "@typescript-eslint/no-empty-function": ["error"],
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": ["error"],
+        "no-warning-comments": [
+            2,
+            { "terms": ["todo", "fixme", "xxx", "hack", "dev", "dirty", "ugly", "bad"], "location": "anywhere" }
+        ],
+        "import/no-cycle": "off"
+    },
+    "settings": {
+        "import/parsers": {
+            "espree": [".js", ".jsx", ".ts", ".tsx"]
+        },
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx", ".d.ts", ".json", ".mjs"]
+            }
+        },
+        "import/extensions": [".js", ".jsx", ".ts", ".tsx", ".d.ts", ".json", ".mjs"],
+        "react": {
+            "version": "detect"
+        },
+        "formatjs/no-offset": "error",
+        "formatjs/enforce-default-message": ["error", "literal"]
+    }
+}
