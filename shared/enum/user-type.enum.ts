@@ -1,5 +1,5 @@
 export enum UserType {
     CONSUMER = 'CONSUMER',
-    OWNER = 'OWNER',
+    BUSINESS_OWNER = 'BUSINESS_OWNER',
     UNDEFINED_USER = 'UNDEFINED_USER',
 }

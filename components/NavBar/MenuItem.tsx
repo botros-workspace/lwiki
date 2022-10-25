@@ -1,44 +1,54 @@
-import { Button, Flex } from '@chakra-ui/react';
-import Link from 'next/link';
+import { Button, Icon, Text, Grid, GridItem } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import React, { FunctionComponent, ReactElement } from 'react';
-import { useColor } from '../../shared/hooks/use_color_library.hook';
+import React, { FunctionComponent, useCallback } from 'react';
+import { IconType } from 'react-icons/lib';
+import { useColor } from '../../shared/hooks/use-color-library.hook';
 
 type Props = {
     route: string;
-    icon: ReactElement;
+    icon: IconType;
     text: string;
     closeModal: () => void;
+    iconColor?: string;
 };
 
-const MenuItem: FunctionComponent<Props> = ({ route, icon, text, closeModal }) => {
+const MenuItem: FunctionComponent<Props> = ({ route, icon, text, closeModal, iconColor }) => {
     const { textColor, textOnHover } = useColor();
     const router = useRouter();
 
-    const changeRoute = (direction: string) => {
+    const changeRoute = useCallback(() => {
+        router.push(`${route}`, undefined, { shallow: true });
         closeModal();
-        router.push(`${direction}`, undefined, { shallow: true });
-    };
+    }, [closeModal, route, router]);
 
     return (
-        <Flex>
-            <Link href={route}>
-                <Button
-                    w={{ base: 22, md: 44 }}
-                    size={{ base: 'sm', md: 'lg' }}
-                    onClick={() => {
-                        changeRoute(route);
-                    }}
-                    leftIcon={icon}
-                    _hover={{ color: textColor }}
-                    _focus={{ background: 'none' }}
-                    _active={{ background: 'none' }}
-                    background="none"
-                    color={router.pathname === route ? textColor : textOnHover}>
-                    {text}
-                </Button>
-            </Link>
-        </Flex>
+        <Button
+            bg="none"
+            _hover={{ color: textColor }}
+            _focus={{ background: 'none' }}
+            _active={{ background: 'none' }}
+            color={router.pathname === route ? textColor : textOnHover}
+            variant="outline"
+            size={{ base: 'sm', md: 'lg' }}
+            onClick={() => {
+                changeRoute();
+            }}>
+            <Grid
+                fontSize={{ base: 'xs', md: 'md' }}
+                w={{ base: 32, md: 44 }}
+                templateRows="repeat(1, 1fr)"
+                templateColumns="repeat(8, 1fr)">
+                <GridItem colSpan={1}>
+                    <Icon as={icon} color={iconColor} fontSize={{ base: 'sm', md: '2xl' }} />
+                </GridItem>
+
+                <GridItem colSpan={7} textAlign="center">
+                    <Text mt={{ base: 0, md: 1 }} fontWeight="bold">
+                        {text}
+                    </Text>
+                </GridItem>
+            </Grid>
+        </Button>
     );
 };
 export default MenuItem;

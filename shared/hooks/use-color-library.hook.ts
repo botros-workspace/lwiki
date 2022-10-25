@@ -6,6 +6,7 @@ export type colors = {
     backgroundGrayColor: string;
     textColor: string;
     textOnHover: string;
+    mainBackground: string;
 };
 
 export function useColor(): colors {
@@ -15,5 +16,6 @@ export function useColor(): colors {
         backgroundGrayColor: useColorModeValue('gray.400', 'gray.600'),
         textColor: useColorModeValue('blue.800', 'whiteAlpha.800'),
         textOnHover: useColorModeValue('white', 'gray.800'),
+        mainBackground: useColorModeValue('whiteAlpha.100', 'gray.800'),
     };
 }

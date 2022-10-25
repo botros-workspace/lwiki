@@ -1,22 +1,69 @@
 import React, { FunctionComponent } from 'react';
 import { useDisclosure, Modal, ModalBody, ModalContent, ModalOverlay, Center, VStack, Icon } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
-import { AiFillHome } from 'react-icons/ai';
-import { BiLogIn } from 'react-icons/bi';
+import { HiOutlineViewGridAdd, HiStar } from 'react-icons/hi';
+import { AiOutlineStop } from 'react-icons/ai';
+import { BiLogIn, BiLogOut } from 'react-icons/bi';
 import { BsInfoCircle } from 'react-icons/bs';
-import { useColor } from '../../shared/hooks/use_color_library.hook';
+import { useRecoilValue } from 'recoil';
+import { SiOpenstreetmap } from 'react-icons/si';
+import { TiThListOutline } from 'react-icons/ti';
+import { IoPersonAddOutline } from 'react-icons/io5';
+import { TbMap2 } from 'react-icons/tb';
+import { useColor } from '../../shared/hooks/use-color-library.hook';
 import MenuItem from './MenuItem';
-
-export const menuItems = [
-    { route: '/', icon: <AiFillHome />, text: 'Home' },
-    { route: '/about', icon: <BsInfoCircle />, text: 'About' },
-    { route: '/register', icon: <BiLogIn />, text: 'Register' },
-    { route: '/login', icon: <BiLogIn />, text: 'Login' },
-];
+import { userInfoState } from '../../shared/recoilStates/user.state';
+import { UserType } from '../../shared/enum/user-type.enum';
+import {
+    ABOUT_PAGE,
+    ALLERGIES_PAGE,
+    BUSINESS_REGISTER_PAGE,
+    EXPLORE_PAGE,
+    LANDING_PAGE,
+    LOGIN_PAGE,
+    LOGOUT_PAGE,
+    MANAGE_BUSINESS_PAGE,
+    REGISTER_PAGE,
+    SAVED_PAGE,
+} from '../../shared/endpoints';
 
 const BurgerMenu: FunctionComponent = () => {
     const { primaryColor, secondaryColor, backgroundGrayColor } = useColor();
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const user = useRecoilValue(userInfoState);
+    const menuItems = [
+        { route: LANDING_PAGE, icon: SiOpenstreetmap, text: 'Search', show: true },
+        { route: EXPLORE_PAGE, icon: TbMap2, text: 'Explore', show: true },
+        { route: ABOUT_PAGE, icon: BsInfoCircle, text: 'About', show: user.userType === UserType.UNDEFINED_USER },
+        {
+            route: REGISTER_PAGE,
+            icon: IoPersonAddOutline,
+            text: 'Register',
+            show: user.userType === UserType.UNDEFINED_USER,
+        },
+        { route: LOGIN_PAGE, icon: BiLogIn, text: 'Login', show: user.userType === UserType.UNDEFINED_USER },
+        {
+            route: SAVED_PAGE,
+            icon: HiStar,
+            text: 'Saved',
+            show: user.userType === UserType.CONSUMER,
+            iconColor: 'yellow.400',
+        },
+        {
+            route: BUSINESS_REGISTER_PAGE,
+            icon: HiOutlineViewGridAdd,
+            text: 'Register Business',
+            show: user.userType === UserType.BUSINESS_OWNER,
+        },
+        {
+            route: MANAGE_BUSINESS_PAGE,
+            icon: TiThListOutline,
+            text: 'Manage Business',
+            show: user.userType === UserType.BUSINESS_OWNER,
+        },
+        { route: ALLERGIES_PAGE, icon: AiOutlineStop, text: 'Allergies', show: user.userType === UserType.CONSUMER },
+        { route: LOGOUT_PAGE, icon: BiLogOut, text: 'Logout', show: user.userType !== UserType.UNDEFINED_USER },
+    ];
 
     return (
         <>
@@ -48,17 +95,22 @@ const BurgerMenu: FunctionComponent = () => {
                         <HamburgerIcon />
                     </Icon>
                 </ModalOverlay>
-                <ModalContent bg="none" boxShadow="none" mt={['70%', '40%', '15%']}>
+                <ModalContent bg="none" boxShadow="none" mt={['50%', '20%', '15%']}>
                     <ModalBody m="auto">
                         <Center>
                             <VStack>
                                 {menuItems.map((item) => (
-                                    <MenuItem
-                                        route={item.route}
-                                        icon={item.icon}
-                                        text={item.text}
-                                        closeModal={onClose}
-                                    />
+                                    <>
+                                        {item.show && (
+                                            <MenuItem
+                                                route={item.route}
+                                                icon={item.icon}
+                                                text={item.text}
+                                                closeModal={onClose}
+                                                iconColor={item.iconColor}
+                                            />
+                                        )}
+                                    </>
                                 ))}
                             </VStack>
                         </Center>

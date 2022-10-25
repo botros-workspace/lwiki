@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Icon, Tooltip } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { IconType } from 'react-icons';
-import { useColor } from '../../shared/hooks/use_color_library.hook';
+import { useColor } from '../../shared/hooks/use-color-library.hook';
 
 type Props = {
     route?: string;

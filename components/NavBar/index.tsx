@@ -1,20 +1,22 @@
 import { Flex, Menu } from '@chakra-ui/react';
 import React, { FunctionComponent } from 'react';
-import { BiLogIn } from 'react-icons/bi';
+import { IoPersonAddOutline } from 'react-icons/io5';
 import { BsInfoCircle, BsSearch } from 'react-icons/bs';
+import { BiLogIn } from 'react-icons/bi';
 import NavItem from './NavItem';
 import BurgerMenu from './BurgerMenu';
 import NavBarFooter from './NavBarFooter';
+import { ABOUT_PAGE, LANDING_PAGE, LOGIN_PAGE, REGISTER_PAGE } from '../../shared/endpoints';
 
 export const navItems = [
-    { route: '/', icon: BsSearch, tooltipLabel: 'Search' },
-    { route: '/about', icon: BsInfoCircle, tooltipLabel: 'About' },
+    { route: LANDING_PAGE, icon: BsSearch, tooltipLabel: 'Search' },
+    { route: ABOUT_PAGE, icon: BsInfoCircle, tooltipLabel: 'About' },
     {
-        route: '/register',
-        icon: BiLogIn,
+        route: REGISTER_PAGE,
+        icon: IoPersonAddOutline,
         tooltipLabel: 'Register',
     },
-    { route: '/login', icon: BiLogIn, tooltipLabel: 'Login' },
+    { route: LOGIN_PAGE, icon: BiLogIn, tooltipLabel: 'Login' },
 ];
 const NavBar: FunctionComponent = () => (
     <Flex flexDir="column" justifyContent="space-between" h="100%">

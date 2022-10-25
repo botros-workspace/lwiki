@@ -2,24 +2,30 @@ import React, { FunctionComponent, ReactNode } from 'react';
 import { IconType } from 'react-icons';
 import { Box, Button, Center, Flex, Heading } from '@chakra-ui/react';
 import { Step, Steps, useSteps } from 'chakra-ui-steps';
+import { useRouter } from 'next/router';
 
+export interface StepComponent {
+    label: string;
+    icon: IconType;
+    component: ReactNode;
+}
 type Props = {
-    steps: {
-        label: string;
-        icon: IconType;
-        component: ReactNode;
-    }[];
+    steps: StepComponent[];
+    color: string;
+    canResetSteps: boolean;
+    redirectLink?: string;
 };
-const RegisterationStepsDialog: FunctionComponent<Props> = ({ steps }) => {
+const StepsTemplate: FunctionComponent<Props> = ({ steps, color, canResetSteps = false, redirectLink }) => {
     const { nextStep, prevStep, reset, activeStep } = useSteps({
         initialStep: 0,
     });
+    const router = useRouter();
 
     return (
         <Flex flexDir="column" alignSelf="center" w={{ base: '95%', md: '80%' }} h={{ base: 'auto', md: '95vh' }}>
             <Steps
                 activeStep={activeStep}
-                colorScheme="teal"
+                colorScheme={color}
                 maxW="100%"
                 alignSelf="center"
                 size={{ base: 'sm', md: 'md' }}
@@ -41,12 +47,16 @@ const RegisterationStepsDialog: FunctionComponent<Props> = ({ steps }) => {
                         </Heading>
                     </Box>
                     <Flex alignSelf="center" mt={4}>
-                        <Button size="sm" onClick={reset} mr={4}>
-                            Reset
-                        </Button>
-                        <Button mx="auto" size="sm" onClick={reset}>
-                            Reset
-                        </Button>
+                        {canResetSteps && (
+                            <Button mx="auto" size="sm" onClick={reset}>
+                                Reset
+                            </Button>
+                        )}
+                        {redirectLink && (
+                            <Button onClickCapture={() => router.push(redirectLink)} size="sm" onClick={reset} mr={4}>
+                                Redirect
+                            </Button>
+                        )}
                     </Flex>
                 </Flex>
             ) : (
@@ -62,4 +72,4 @@ const RegisterationStepsDialog: FunctionComponent<Props> = ({ steps }) => {
         </Flex>
     );
 };
-export default RegisterationStepsDialog;
+export default StepsTemplate;
