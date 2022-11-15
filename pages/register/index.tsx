@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import Router from 'next/router';
 import { UserType } from '../../shared/enum/user-type.enum';
 import ConsumerRegisterForm from '../../components/Registeration/ConsumerRegisterForm';
-import { useColor } from '../../shared/hooks/use-color-library.hook';
+import { useColor } from '../../shared/hooks/use-color.hook';
 import { userInfoState } from '../../shared/recoilStates/user.state';
 import BusinessOwnerRegisterForm from '../../components/Registeration/BusinessOwnerRegisterForm';
 

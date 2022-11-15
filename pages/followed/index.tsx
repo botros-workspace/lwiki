@@ -2,10 +2,10 @@ import React from 'react';
 import { Box, Center } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 
-const Saved: NextPage = () => (
+const FollowedBusiness: NextPage = () => (
     <Box w="100%" minH="100%">
-        <Center>Saved</Center>
+        <Center>Followed</Center>
     </Box>
 );
 
-export default Saved;
+export default FollowedBusiness;

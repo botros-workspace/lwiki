@@ -1,53 +1,74 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Button, Center, Flex, RadioGroup, Stack, Text } from '@chakra-ui/react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Box, Center, Flex, RadioGroup, Stack, Text } from '@chakra-ui/react';
 import type { NextPage } from 'next';
-import axios from 'axios';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { useLoadingProgressBar } from '../../shared/hooks/use-loading-progressBar.hook';
-import { allFeaturesState, Feature, featuresResponseState } from '../../shared/recoilStates/features.state';
+import {
+    allFeaturesState,
+    allPaymentMethodsState,
+    Feature,
+    indicatorsResponseState,
+    Payment,
+} from '../../shared/recoilStates/indicators.state';
+// import Axios from '../../axios/api';
 import FeatureTemplate from '../../components/FeatureTemplate';
+import { axiosInstance } from '../../axios/axiosInstance';
+import { useAxios } from '../../shared/hooks/use-axios.hook';
+import { useErrorToast } from '../../shared/hooks/use-error-toast.hook';
+import { BACKEND_GET_INDICATORS } from '../../shared/constants/endpoints';
 
 const RegisterBusiness: NextPage = () => {
-    const { showLoadingBar, hideLoadingBar } = useLoadingProgressBar();
-    const setFeaturesResponseState = useSetRecoilState(featuresResponseState);
+    const setIndicatorsResponseState = useSetRecoilState(indicatorsResponseState);
     const featuresState = useRecoilValue(allFeaturesState);
+    const paymentMethodsState = useRecoilValue(allPaymentMethodsState);
     const [allFeatures, setAllFeatures] = useState<Array<Feature>>([]);
+    const [allPaymentMethods, setAllPaymentMethods] = useState<Array<Payment>>([]);
     const [selectedFeatures, setSelectedFeatures] = useState<Array<Feature>>([]);
-    const handleFeatureClick = (feature: Feature) => {
-        const index = selectedFeatures.findIndex((f) => f.id === feature.id);
-        if (index === -1) {
-            setSelectedFeatures([...selectedFeatures, feature]);
-        } else if (index > -1) {
-            selectedFeatures.splice(index, 1);
-            setSelectedFeatures([...selectedFeatures]);
+    const { handleGetRequest } = useAxios();
+    const errorToast = useErrorToast();
+
+    const fetch = useCallback(async () => {
+        try {
+            const result: any = await handleGetRequest(axiosInstance, BACKEND_GET_INDICATORS);
+            if (result) {
+                setIndicatorsResponseState(result);
+            }
+        } catch (errors: any) {
+            if (errors !== undefined) {
+                Object.keys(errors).forEach((key, index) => {
+                    errorToast(Object.keys(errors)[index], errors[key].toString());
+                });
+            }
         }
-    };
+    }, []);
     useEffect(() => {
         setAllFeatures(featuresState);
-    }, [featuresState]);
+        setAllPaymentMethods(paymentMethodsState);
+    }, [featuresState, paymentMethodsState]);
     useEffect(() => {
-        showLoadingBar();
-        (async () => {
-            await axios.get('http://127.0.0.1:8000/get_features/').then((res) => {
-                setFeaturesResponseState(res.data);
-            });
-        })();
-        hideLoadingBar();
-    }, [hideLoadingBar, setFeaturesResponseState, showLoadingBar]);
+        fetch();
+    }, [fetch]);
+
     return (
-        <Box borderWidth={2} borderColor="red" h="99vh">
+        <Box h="99vh">
             <Center>
                 <Flex flexDir="column">
+                    <Flex>Payments</Flex>
+                    <Flex flexDir="column">
+                        {allPaymentMethods &&
+                            allPaymentMethods.map((item) => <Text>{item.name.replace('_', ' ')}</Text>)}
+                    </Flex>
+                </Flex>
+                <Flex flexDir="column">
                     <RadioGroup>
-                        <Stack direction="column">
+                        <Stack direction="column" gap={4}>
                             {allFeatures &&
-                                allFeatures?.map((item) => (
-                                    <Button onClick={() => handleFeatureClick(item)}>
-                                        <FeatureTemplate
-                                            name={item.feature_type}
-                                            isSelected={selectedFeatures.includes(item)}
-                                        />
-                                    </Button>
+                                allFeatures.map((item) => (
+                                    <FeatureTemplate
+                                        feature={item}
+                                        isSelected={selectedFeatures.includes(item)}
+                                        selectedFeatures={selectedFeatures}
+                                        setSelectedFeatures={setSelectedFeatures}
+                                    />
                                 ))}
                         </Stack>
                     </RadioGroup>
@@ -55,7 +76,7 @@ const RegisterBusiness: NextPage = () => {
                 <Flex flexDir="column">
                     <Flex>choosen features</Flex>
                     <Flex flexDir="column">
-                        {selectedFeatures && selectedFeatures?.map((item) => <Text>{item.feature_type}</Text>)}
+                        {selectedFeatures && selectedFeatures.map((item) => <Text>{item.feature_type}</Text>)}
                     </Flex>
                 </Flex>
             </Center>

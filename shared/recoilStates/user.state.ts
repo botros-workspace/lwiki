@@ -1,9 +1,22 @@
+import secureLocalStorage from 'react-secure-storage';
 import { atom, selector } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 import { UserType } from '../enum/user-type.enum';
-import { Business, BusinessModel, BusinessResponse } from '../models/BusinessModel';
+import { Business, BusinessResponse } from '../interfaces/Business';
+import { BusinessModel } from '../models/BusinessModel';
 
-const { persistAtom } = recoilPersist();
+const { persistAtom: persistUserInfo } = recoilPersist({
+    key: 'persist-userInfo',
+    storage: secureLocalStorage as any,
+});
+const { persistAtom: persistConsumer } = recoilPersist({
+    key: 'persist-consumer',
+    storage: secureLocalStorage as any,
+});
+const { persistAtom: persistOwner } = recoilPersist({
+    key: 'persist-owner',
+    storage: secureLocalStorage as any,
+});
 
 export interface UserInfo {
     userType: UserType;
@@ -12,7 +25,7 @@ export interface UserInfo {
 export interface ConsumerData {
     name: string | undefined;
     image: string | undefined;
-    saved_business: Array<string> | undefined;
+    followed_business: Array<string> | undefined;
     saved_products: Array<string> | undefined;
     purchased_recipes: Array<string> | undefined;
     consumer_reservations: Array<string> | undefined;
@@ -31,17 +44,17 @@ export interface BusinessOwnerData {
 export const userInfoState = atom<UserInfo>({
     key: 'userInfo',
     default: { userType: UserType.UNDEFINED_USER, userId: undefined },
-    effects_UNSTABLE: [persistAtom],
+    effects_UNSTABLE: [persistUserInfo],
 });
-export const consumerDataState = atom<ConsumerData>({
+export const consumerDataState = atom({
     key: 'consumerData',
-    default: undefined as ConsumerData | undefined,
-    effects_UNSTABLE: [persistAtom],
+    default: undefined as any as ConsumerData,
+    effects_UNSTABLE: [persistConsumer],
 });
 export const businessOwnerDataState = atom<BusinessOwnerData>({
     key: 'businessOwnerData',
-    default: undefined,
-    effects_UNSTABLE: [persistAtom],
+    default: undefined as any as BusinessOwnerData,
+    effects_UNSTABLE: [persistOwner],
 });
 
 export const allBusinessState = selector({
@@ -65,13 +78,12 @@ export const allBusinessState = selector({
                         singleBusiness.phone_number,
                         singleBusiness.business_email,
                         singleBusiness.payment_methods,
-                        singleBusiness.average_per_person,
-                        singleBusiness.orientation,
                         singleBusiness.menu_categories,
                         singleBusiness.products,
                         singleBusiness.links,
                         singleBusiness.consumer_reviews,
-                        singleBusiness.events,
+                        singleBusiness.private_events,
+                        singleBusiness.public_events,
                         singleBusiness.features,
                         singleBusiness.open_hours,
                         singleBusiness.food_experience,
@@ -83,9 +95,13 @@ export const allBusinessState = selector({
                         singleBusiness.business_reservations,
                         singleBusiness.reservation_required,
                         singleBusiness.continuous_service,
-                        singleBusiness.saved_count,
+                        singleBusiness.followers_count,
                         singleBusiness.is_published,
+                        singleBusiness.is_reservation_system_active,
+                        singleBusiness.badges,
                         singleBusiness.offers,
+                        singleBusiness.average_per_person,
+                        singleBusiness.orientations,
                         singleBusiness.creation_date
                     )
                 )

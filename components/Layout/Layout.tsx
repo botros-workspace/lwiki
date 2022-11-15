@@ -2,7 +2,7 @@ import React, { FunctionComponent, ReactNode } from 'react';
 import { Grid, GridItem } from '@chakra-ui/react';
 import NavBar from '../NavBar';
 import ProgressBar from '../ProgessBar';
-import { useColor } from '../../shared/hooks/use-color-library.hook';
+import { useColor } from '../../shared/hooks/use-color.hook';
 
 interface Props {
     children: ReactNode;

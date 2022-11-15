@@ -1,25 +1,20 @@
 import { Button, Icon, Text, Grid, GridItem } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import React, { FunctionComponent, useCallback } from 'react';
+import React, { FunctionComponent } from 'react';
 import { IconType } from 'react-icons/lib';
-import { useColor } from '../../shared/hooks/use-color-library.hook';
+import { useColor } from '../../shared/hooks/use-color.hook';
 
 type Props = {
     route: string;
     icon: IconType;
     text: string;
-    closeModal: () => void;
+    changeRoute: (route: string) => void;
     iconColor?: string;
 };
 
-const MenuItem: FunctionComponent<Props> = ({ route, icon, text, closeModal, iconColor }) => {
+const BurgerMenuItem: FunctionComponent<Props> = ({ route, icon, text, changeRoute, iconColor }) => {
     const { textColor, textOnHover } = useColor();
     const router = useRouter();
-
-    const changeRoute = useCallback(() => {
-        router.push(`${route}`, undefined, { shallow: true });
-        closeModal();
-    }, [closeModal, route, router]);
 
     return (
         <Button
@@ -31,7 +26,7 @@ const MenuItem: FunctionComponent<Props> = ({ route, icon, text, closeModal, ico
             variant="outline"
             size={{ base: 'sm', md: 'lg' }}
             onClick={() => {
-                changeRoute();
+                changeRoute(route);
             }}>
             <Grid
                 fontSize={{ base: 'xs', md: 'md' }}
@@ -51,4 +46,4 @@ const MenuItem: FunctionComponent<Props> = ({ route, icon, text, closeModal, ico
         </Button>
     );
 };
-export default MenuItem;
+export default BurgerMenuItem;

@@ -1,104 +1,138 @@
 /* eslint-disable camelcase */
 
-import { FeatureName } from '../enum/features.enum';
+import { FeatureName } from '../enum/feature-types.enum';
 
-export interface FeatureResponse {
-    id: string;
-    feature_type: string;
-}
-export interface Business {
-    id: string;
-    feature_type: FeatureName;
-}
 export class FeatureModel {
     constructor(public id: string, public feature_type: FeatureName) {}
 
     static fromFeatureResponse(id: string, feature_type: string) {
-        let new_feature_type: FeatureName = FeatureName.UNDEFINED_FEATURE;
-        if (feature_type === 'ANIMAL_FRIENDLY') {
-            new_feature_type = FeatureName.ANIMAL_FRIENDLY as FeatureName;
-        } else if (feature_type === 'BACK_GARDEN') {
-            new_feature_type = FeatureName.BACK_GARDEN as FeatureName;
-        } else if (feature_type === 'BAR') {
-            new_feature_type = FeatureName.BAR as FeatureName;
-        } else if (feature_type === 'BEACH_BAR') {
-            new_feature_type = FeatureName.BEACH_BAR as FeatureName;
-        } else if (feature_type === 'BEACH_TABELS') {
-            new_feature_type = FeatureName.BEACH_TABELS as FeatureName;
-        } else if (feature_type === 'BLIND_PEOPLE_FRIENDLY') {
-            new_feature_type = FeatureName.BLIND_PEOPLE_FRIENDLY as FeatureName;
-        } else if (feature_type === 'CATERING') {
-            new_feature_type = FeatureName.CATERING as FeatureName;
-        } else if (feature_type === 'CITY_CENTER') {
-            new_feature_type = FeatureName.CITY_CENTER as FeatureName;
-        } else if (feature_type === 'DANCE_FLOOR') {
-            new_feature_type = FeatureName.DANCE_FLOOR as FeatureName;
-        } else if (feature_type === 'DELIVERY') {
-            new_feature_type = FeatureName.DELIVERY as FeatureName;
-        } else if (feature_type === 'DINING_ROOM') {
-            new_feature_type = FeatureName.DINING_ROOM as FeatureName;
-        } else if (feature_type === 'DRIVE_THROUGH') {
-            new_feature_type = FeatureName.DRIVE_THROUGH as FeatureName;
-        } else if (feature_type === 'ELEVATOR') {
-            new_feature_type = FeatureName.ELEVATOR as FeatureName;
-        } else if (feature_type === 'FOOD_PICK_UP') {
-            new_feature_type = FeatureName.FOOD_PICK_UP as FeatureName;
-        } else if (feature_type === 'GAMING_AREA') {
-            new_feature_type = FeatureName.GAMING_AREA as FeatureName;
-        } else if (feature_type === 'GARDEN') {
-            new_feature_type = FeatureName.GARDEN as FeatureName;
-        } else if (feature_type === 'HIGH_TABELS') {
-            new_feature_type = FeatureName.HIGH_TABELS as FeatureName;
-        } else if (feature_type === 'KIDS_AREA') {
-            new_feature_type = FeatureName.KIDS_AREA as FeatureName;
-        } else if (feature_type === 'KIDS_FRIENDLY') {
-            new_feature_type = FeatureName.KIDS_FRIENDLY as FeatureName;
-        } else if (feature_type === 'LACK_VIEW') {
-            new_feature_type = FeatureName.LACK_VIEW as FeatureName;
-        } else if (feature_type === 'LIVE_BAND') {
-            new_feature_type = FeatureName.LIVE_BAND as FeatureName;
-        } else if (feature_type === 'LIVE_DJ') {
-            new_feature_type = FeatureName.LIVE_DJ as FeatureName;
-        } else if (feature_type === 'LIVE_MUSIC') {
-            new_feature_type = FeatureName.LIVE_MUSIC as FeatureName;
-        } else if (feature_type === 'LIVE_SHOW') {
-            new_feature_type = FeatureName.LIVE_SHOW as FeatureName;
-        } else if (feature_type === 'MOUNTAIN_VIEW') {
-            new_feature_type = FeatureName.MOUNTAIN_VIEW as FeatureName;
-        } else if (feature_type === 'PANORAMA_VIEW') {
-            new_feature_type = FeatureName.PANORAMA_VIEW as FeatureName;
-        } else if (feature_type === 'PARKING_AREA') {
-            new_feature_type = FeatureName.PARKING_AREA as FeatureName;
-        } else if (feature_type === 'PARKING_ASSISTANCE') {
-            new_feature_type = FeatureName.PARKING_ASSISTANCE as FeatureName;
-        } else if (feature_type === 'POOL') {
-            new_feature_type = FeatureName.POOL as FeatureName;
-        } else if (feature_type === 'POOL_TABELS') {
-            new_feature_type = FeatureName.POOL_TABELS as FeatureName;
-        } else if (feature_type === 'POOL_VIEW') {
-            new_feature_type = FeatureName.POOL_VIEW as FeatureName;
-        } else if (feature_type === 'PRIVATE_TABELS') {
-            new_feature_type = FeatureName.PRIVATE_TABELS as FeatureName;
-        } else if (feature_type === 'RIVER_VIEW') {
-            new_feature_type = FeatureName.RIVER_VIEW as FeatureName;
-        } else if (feature_type === 'ROOF_TOP') {
-            new_feature_type = FeatureName.ROOF_TOP as FeatureName;
-        } else if (feature_type === 'SAND_AREA') {
-            new_feature_type = FeatureName.SAND_AREA as FeatureName;
-        } else if (feature_type === 'SEA_VIEW') {
-            new_feature_type = FeatureName.SEA_VIEW as FeatureName;
-        } else if (feature_type === 'SENIORS_FRIENDLY') {
-            new_feature_type = FeatureName.SENIORS_FRIENDLY as FeatureName;
-        } else if (feature_type === 'STANDING_TABELS') {
-            new_feature_type = FeatureName.STANDING_TABELS as FeatureName;
-        } else if (feature_type === 'TERRACE') {
-            new_feature_type = FeatureName.TERRACE as FeatureName;
-        } else if (feature_type === 'UNDER_WATER') {
-            new_feature_type = FeatureName.UNDER_WATER as FeatureName;
-        } else if (feature_type === 'WHEEL_CHAIR_FRIENDLY') {
-            new_feature_type = FeatureName.WHEEL_CHAIR_FRIENDLY as FeatureName;
-        }
-
-        return new FeatureModel(id, new_feature_type);
+        return new FeatureModel(id, getFeatureName(feature_type));
     }
+}
+
+export function getFeatureName(featureName: string): FeatureName {
+    if (featureName === 'ANIMAL_FRIENDLY') {
+        return FeatureName.ANIMAL_FRIENDLY as FeatureName;
+    }
+    if (featureName === 'BACK_GARDEN') {
+        return FeatureName.BACK_GARDEN as FeatureName;
+    }
+    if (featureName === 'BAR') {
+        return FeatureName.BAR as FeatureName;
+    }
+    if (featureName === 'BEACH_BAR') {
+        return FeatureName.BEACH_BAR as FeatureName;
+    }
+    if (featureName === 'BEACH_TABELS') {
+        return FeatureName.BEACH_TABELS as FeatureName;
+    }
+    if (featureName === 'BLIND_PEOPLE_FRIENDLY') {
+        return FeatureName.BLIND_PEOPLE_FRIENDLY as FeatureName;
+    }
+    if (featureName === 'CATERING') {
+        return FeatureName.CATERING as FeatureName;
+    }
+    if (featureName === 'CITY_CENTER') {
+        return FeatureName.CITY_CENTER as FeatureName;
+    }
+    if (featureName === 'DANCE_FLOOR') {
+        return FeatureName.DANCE_FLOOR as FeatureName;
+    }
+    if (featureName === 'DELIVERY') {
+        return FeatureName.DELIVERY as FeatureName;
+    }
+    if (featureName === 'DINING_ROOM') {
+        return FeatureName.DINING_ROOM as FeatureName;
+    }
+    if (featureName === 'DRIVE_THROUGH') {
+        return FeatureName.DRIVE_THROUGH as FeatureName;
+    }
+    if (featureName === 'ELEVATOR') {
+        return FeatureName.ELEVATOR as FeatureName;
+    }
+    if (featureName === 'FOOD_PICK_UP') {
+        return FeatureName.FOOD_PICK_UP as FeatureName;
+    }
+    if (featureName === 'GAMING_AREA') {
+        return FeatureName.GAMING_AREA as FeatureName;
+    }
+    if (featureName === 'GARDEN') {
+        return FeatureName.GARDEN as FeatureName;
+    }
+    if (featureName === 'HIGH_TABELS') {
+        return FeatureName.HIGH_TABELS as FeatureName;
+    }
+    if (featureName === 'KIDS_AREA') {
+        return FeatureName.KIDS_AREA as FeatureName;
+    }
+    if (featureName === 'KIDS_FRIENDLY') {
+        return FeatureName.KIDS_FRIENDLY as FeatureName;
+    }
+    if (featureName === 'LACK_VIEW') {
+        return FeatureName.LACK_VIEW as FeatureName;
+    }
+    if (featureName === 'LIVE_BAND') {
+        return FeatureName.LIVE_BAND as FeatureName;
+    }
+    if (featureName === 'LIVE_DJ') {
+        return FeatureName.LIVE_DJ as FeatureName;
+    }
+    if (featureName === 'LIVE_MUSIC') {
+        return FeatureName.LIVE_MUSIC as FeatureName;
+    }
+    if (featureName === 'LIVE_SHOW') {
+        return FeatureName.LIVE_SHOW as FeatureName;
+    }
+    if (featureName === 'MOUNTAIN_VIEW') {
+        return FeatureName.MOUNTAIN_VIEW as FeatureName;
+    }
+    if (featureName === 'PANORAMA_VIEW') {
+        return FeatureName.PANORAMA_VIEW as FeatureName;
+    }
+    if (featureName === 'PARKING_AREA') {
+        return FeatureName.PARKING_AREA as FeatureName;
+    }
+    if (featureName === 'PARKING_ASSISTANCE') {
+        return FeatureName.PARKING_ASSISTANCE as FeatureName;
+    }
+    if (featureName === 'POOL') {
+        return FeatureName.POOL as FeatureName;
+    }
+    if (featureName === 'POOL_TABELS') {
+        return FeatureName.POOL_TABELS as FeatureName;
+    }
+    if (featureName === 'POOL_VIEW') {
+        return FeatureName.POOL_VIEW as FeatureName;
+    }
+    if (featureName === 'PRIVATE_TABELS') {
+        return FeatureName.PRIVATE_TABELS as FeatureName;
+    }
+    if (featureName === 'RIVER_VIEW') {
+        return FeatureName.RIVER_VIEW as FeatureName;
+    }
+    if (featureName === 'ROOF_TOP') {
+        return FeatureName.ROOF_TOP as FeatureName;
+    }
+    if (featureName === 'SAND_AREA') {
+        return FeatureName.SAND_AREA as FeatureName;
+    }
+    if (featureName === 'SEA_VIEW') {
+        return FeatureName.SEA_VIEW as FeatureName;
+    }
+    if (featureName === 'SENIORS_FRIENDLY') {
+        return FeatureName.SENIORS_FRIENDLY as FeatureName;
+    }
+    if (featureName === 'STANDING_TABELS') {
+        return FeatureName.STANDING_TABELS as FeatureName;
+    }
+    if (featureName === 'TERRACE') {
+        return FeatureName.TERRACE as FeatureName;
+    }
+    if (featureName === 'UNDER_WATER') {
+        return FeatureName.UNDER_WATER as FeatureName;
+    }
+    if (featureName === 'WHEEL_CHAIR_FRIENDLY') {
+        return FeatureName.WHEEL_CHAIR_FRIENDLY as FeatureName;
+    }
+    return FeatureName.UNDEFINED_FEATURE as FeatureName;
 }

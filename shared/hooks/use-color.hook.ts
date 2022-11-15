@@ -7,6 +7,9 @@ export type colors = {
     textColor: string;
     textOnHover: string;
     mainBackground: string;
+    underLineColor: string;
+    businessPreviewShortcutMenuBG: string;
+    mainSearchBarBg: string;
 };
 
 export function useColor(): colors {
@@ -17,5 +20,8 @@ export function useColor(): colors {
         textColor: useColorModeValue('blue.800', 'whiteAlpha.800'),
         textOnHover: useColorModeValue('white', 'gray.800'),
         mainBackground: useColorModeValue('whiteAlpha.100', 'gray.800'),
+        underLineColor: useColorModeValue('white', 'gray.800'),
+        businessPreviewShortcutMenuBG: useColorModeValue('gray.300', 'gray.600'),
+        mainSearchBarBg: useColorModeValue('whiteAlpha.700', 'gray.800'),
     };
 }
