@@ -13,7 +13,7 @@ const ManageLinks: NextPage = () => {
     const router = useRouter();
     const businessUniqueId = router.query.businessId;
     useEffect(() => {
-        setBusiness(allBusiness.find((b) => b.businessId === businessUniqueId));
+        setBusiness(allBusiness.find((b) => b.shortId === businessUniqueId));
     }, [allBusiness, businessUniqueId]);
 
     return (

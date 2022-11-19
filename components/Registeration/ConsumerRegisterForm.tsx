@@ -1,17 +1,5 @@
 import React, { FunctionComponent, useCallback, useState } from 'react';
-import {
-    Box,
-    Button,
-    Center,
-    Image,
-    Grid,
-    GridItem,
-    Flex,
-    Text,
-    VisuallyHidden,
-    Input,
-    Tooltip,
-} from '@chakra-ui/react';
+import { Box, Button, Center, Image, Grid, GridItem, Flex, Text, VisuallyHidden, Input } from '@chakra-ui/react';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -25,6 +13,7 @@ import { axiosInstance } from '../../axios/axiosInstance';
 import { useAxios } from '../../shared/hooks/use-axios.hook';
 import { useErrorToast } from '../../shared/hooks/use-error-toast.hook';
 import { BACKEND_REGISTER_PAGE } from '../../shared/constants/endpoints';
+import TooltipTemplate from '../Shared/TooltipTemplate';
 
 type Props = {
     setUserType: (userType: UserType) => void;
@@ -115,15 +104,23 @@ const ConsumerRegisterForm: FunctionComponent<Props> = ({ setUserType }) => {
                                         color="white"
                                         fontSize={{ base: 'lg', md: '3xl' }}>
                                         {selectedImage ? (
-                                            <Tooltip p={3} borderRadius="xl" label="Delete" shouldWrapChildren hasArrow>
+                                            <TooltipTemplate
+                                                label="Delete"
+                                                hasArrow
+                                                placement="bottom"
+                                                shouldWrapChildren>
                                                 <RiDeleteBin6Line
                                                     onClick={() => setSelectedImage(undefined)}
                                                     cursor="pointer"
                                                     color="red"
                                                 />
-                                            </Tooltip>
+                                            </TooltipTemplate>
                                         ) : (
-                                            <Tooltip p={3} borderRadius="xl" label="Upload" shouldWrapChildren hasArrow>
+                                            <TooltipTemplate
+                                                label="Upload"
+                                                hasArrow
+                                                placement="bottom"
+                                                shouldWrapChildren>
                                                 <label
                                                     htmlFor="image"
                                                     onChange={(e: any) => setSelectedImage(e.target.files[0])}>
@@ -137,7 +134,7 @@ const ConsumerRegisterForm: FunctionComponent<Props> = ({ setUserType }) => {
                                                     </VisuallyHidden>
                                                     <AiOutlineCloudUpload cursor="pointer" />
                                                 </label>
-                                            </Tooltip>
+                                            </TooltipTemplate>
                                         )}
                                     </Box>
                                 </Box>

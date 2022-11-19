@@ -8,7 +8,7 @@ import { UserType } from '../../shared/enum/user-type.enum';
 import { axiosInstance } from '../../axios/axiosInstance';
 import { useAxios } from '../../shared/hooks/use-axios.hook';
 import { useErrorToast } from '../../shared/hooks/use-error-toast.hook';
-import { BusinessOwnerRegisterFormAttribute } from '../../shared/interfaces/BusinessOwnerRegisterFormAttribute';
+import { BusinessOwnerRegisterFormAttributes } from '../../shared/interfaces/BusinessOwnerRegisterFormAttributes';
 import { businessOwnerResgisterFormSchema } from '../../shared/yup/businessOwnerRegisterFormSchema';
 import { BACKEND_REGISTER_PAGE, LOGIN_PAGE } from '../../shared/constants/endpoints';
 
@@ -21,12 +21,12 @@ const BusinessOwnerRegisterForm: FunctionComponent<Props> = ({ setUserType }) =>
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<BusinessOwnerRegisterFormAttribute>({ resolver: yupResolver(businessOwnerResgisterFormSchema) });
+    } = useForm<BusinessOwnerRegisterFormAttributes>({ resolver: yupResolver(businessOwnerResgisterFormSchema) });
     const { handlePostRequest } = useAxios();
     const errorToast = useErrorToast();
 
     const onSubmitHandler = useCallback(
-        async (data: BusinessOwnerRegisterFormAttribute) => {
+        async (data: BusinessOwnerRegisterFormAttributes) => {
             const formData = new FormData();
             formData.append('email', data.email);
             formData.append('password', data.password);

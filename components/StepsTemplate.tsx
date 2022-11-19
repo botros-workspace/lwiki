@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 import { IconType } from 'react-icons';
-import { Box, Button, Center, Flex, Heading } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 import { Step, Steps, useSteps } from 'chakra-ui-steps';
 import { useRouter } from 'next/router';
 
@@ -22,7 +22,7 @@ const StepsTemplate: FunctionComponent<Props> = ({ steps, color, canResetSteps =
     const router = useRouter();
 
     return (
-        <Flex flexDir="column" alignSelf="center" w={{ base: '95%', md: '80%' }} h={{ base: 'auto', md: '95vh' }}>
+        <Flex flexDir="column" alignSelf="center" w="95%" h={{ base: 'auto', md: '95vh' }}>
             <Steps
                 activeStep={activeStep}
                 colorScheme={color}
@@ -32,8 +32,8 @@ const StepsTemplate: FunctionComponent<Props> = ({ steps, color, canResetSteps =
                 fontSize={{ base: 'sm', md: 'md' }}>
                 {steps.map(({ label, icon, component }) => (
                     <Step label={label} key={label} icon={icon}>
-                        <Box alignSelf="center" h={{ base: 'auto', md: '70vh' }} w="100%" overflowY="scroll">
-                            <Center>{component}</Center>
+                        <Box h={{ base: 'auto', md: '70vh' }} w="100%" overflowY="scroll">
+                            {component}
                         </Box>
                     </Step>
                 ))}

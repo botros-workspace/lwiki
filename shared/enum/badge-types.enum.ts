@@ -2,5 +2,7 @@ export enum BadgeTitle {
     HALAL = 'HALAL',
     VEGAN = 'VEGAN',
     VEGITARIAN = 'VEGITARIAN',
+    KOSHER = 'KOSHER',
+    PESCATARIAN = 'PESCATARIAN',
     UNDEFINED_BADGE = 'UNDEFINED_BADGE',
 }

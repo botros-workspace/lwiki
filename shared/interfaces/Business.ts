@@ -10,6 +10,7 @@ import { Link } from './Link';
 import { PrivateEvent } from './PrivateEvent';
 import { PublicEvent } from './PublicEvent';
 import { Offer } from './Offer';
+import { BadgeTitle } from '../enum/badge-types.enum';
 
 export interface BusinessResponse {
     business_id: string;
@@ -84,7 +85,7 @@ export interface Business {
     followersCount: number;
     isPublished: boolean;
     isReservationSystemActive: boolean;
-    badges: Array<string>;
+    badges: Array<BadgeTitle>;
     offers: Array<Offer>;
     averagePerPerson: number;
     orientations: Array<OrientationName>;

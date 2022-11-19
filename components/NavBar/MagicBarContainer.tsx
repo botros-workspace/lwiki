@@ -5,9 +5,10 @@ import React, { FunctionComponent, useCallback, useEffect, useState } from 'reac
 import { IconType } from 'react-icons';
 import { BiCategoryAlt, BiLinkExternal, BiLogIn } from 'react-icons/bi';
 import { BsSearch, BsInfoCircle, BsCalendar2Event } from 'react-icons/bs';
+import { FaRegStar } from 'react-icons/fa';
 import { IoMdTimer } from 'react-icons/io';
 import { IoPersonAddOutline } from 'react-icons/io5';
-import { MdOutlineFeaturedPlayList, MdOutlineLocalOffer, MdOutlineVisibility } from 'react-icons/md';
+import { MdOutlineLocalOffer, MdOutlineVisibility } from 'react-icons/md';
 import { SiExpertsexchange } from 'react-icons/si';
 import { TbBrandProducthunt, TbFlipHorizontal, TbMap2 } from 'react-icons/tb';
 import { useRecoilValue } from 'recoil';
@@ -164,7 +165,7 @@ const MagicBarContainer: FunctionComponent = () => {
             onClick: () => changeRoute(`/manage_business/${businessUniqueId}/links`),
         },
         {
-            icon: MdOutlineFeaturedPlayList,
+            icon: FaRegStar,
             tooltipLabel: 'Features',
             show: isBusinessManagingRoute(),
             selected: router.pathname === MANAGE_SINGLE_BUSINESS_FEATURES_PAGE,

@@ -4,5 +4,6 @@ export enum PaymentMethodName {
     APPLE_PAY = 'APPLE_PAY',
     VISA = 'VISA',
     MASTER_CARD = 'MASTER_CARD',
+    ALL = 'ALL',
     UNDEFINED_METHOD = 'UNDEFINED_METHOD',
 }

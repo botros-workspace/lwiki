@@ -2,27 +2,32 @@ import React, { FunctionComponent, useCallback } from 'react';
 import { Flex, Text, Icon, Box } from '@chakra-ui/react';
 import { BsCheck2All } from 'react-icons/bs';
 import { AiOutlineStop } from 'react-icons/ai';
-import { FeatureName } from '../shared/enum/feature-types.enum';
 import { capatalizeAndRemoveUnderScore } from '../shared/functions';
+import { OrientationName } from '../shared/enum/orientation-types.enum';
 
 type Props = {
-    feature: FeatureName;
+    orientation: OrientationName;
     isSelected: boolean;
-    selectedFeatures: FeatureName[];
-    setSelectedFeatures: (features: FeatureName[]) => void;
+    selectedOrientations: OrientationName[];
+    setSelectedOrientations: (orientation: OrientationName[]) => void;
 };
-const FeatureTemplate: FunctionComponent<Props> = ({ feature, isSelected, selectedFeatures, setSelectedFeatures }) => {
+const OrientationTemplate: FunctionComponent<Props> = ({
+    orientation,
+    isSelected,
+    selectedOrientations,
+    setSelectedOrientations,
+}) => {
     const handleFeatureClick = useCallback(
-        (selectedFeature: FeatureName) => {
-            const index = selectedFeatures.findIndex((f) => f === feature);
+        (selectedOrientation: OrientationName) => {
+            const index = selectedOrientations.findIndex((o) => o === orientation);
             if (index === -1) {
-                setSelectedFeatures([...selectedFeatures, selectedFeature]);
+                setSelectedOrientations([...selectedOrientations, selectedOrientation]);
             } else if (index > -1) {
-                selectedFeatures.splice(index, 1);
-                setSelectedFeatures([...selectedFeatures]);
+                selectedOrientations.splice(index, 1);
+                setSelectedOrientations([...selectedOrientations]);
             }
         },
-        [feature, selectedFeatures, setSelectedFeatures]
+        [orientation, selectedOrientations, setSelectedOrientations]
     );
 
     return (
@@ -33,7 +38,7 @@ const FeatureTemplate: FunctionComponent<Props> = ({ feature, isSelected, select
                 borderRadius="full"
                 borderWidth={2}
                 borderColor={isSelected ? 'green.300' : 'gray.400'}
-                onClick={() => handleFeatureClick(feature)}>
+                onClick={() => handleFeatureClick(orientation)}>
                 <Flex h="100%">
                     <Icon
                         as={isSelected ? BsCheck2All : AiOutlineStop}
@@ -44,11 +49,11 @@ const FeatureTemplate: FunctionComponent<Props> = ({ feature, isSelected, select
                 </Flex>
                 <Flex h="100%" w="100%">
                     <Text m="auto" fontWeight="bold" fontSize={{ base: 'xs', md: 'sm' }}>
-                        {capatalizeAndRemoveUnderScore(feature)}
+                        {capatalizeAndRemoveUnderScore(orientation)}
                     </Text>
                 </Flex>
             </Flex>
         </Box>
     );
 };
-export default FeatureTemplate;
+export default OrientationTemplate;

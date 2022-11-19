@@ -2,6 +2,7 @@ import { Flex } from '@chakra-ui/react';
 import React, { FunctionComponent } from 'react';
 import { BiCategoryAlt, BiLinkExternal } from 'react-icons/bi';
 import { BsInfoCircle, BsCalendar2Event } from 'react-icons/bs';
+import { FaRegStar } from 'react-icons/fa';
 import { IoMdTimer } from 'react-icons/io';
 import { MdOutlineFeaturedPlayList, MdOutlineLocalOffer, MdOutlineVisibility } from 'react-icons/md';
 import { TbBrandProducthunt, TbFlipHorizontal } from 'react-icons/tb';
@@ -45,7 +46,7 @@ const ShortcutMenuContainer: FunctionComponent<Props> = ({ business }) => {
         },
         {
             tooltipLabel: 'Features',
-            icon: <MdOutlineFeaturedPlayList />,
+            icon: <FaRegStar />,
             route: `/manage_business/${business.shortId}/features`,
         },
         {

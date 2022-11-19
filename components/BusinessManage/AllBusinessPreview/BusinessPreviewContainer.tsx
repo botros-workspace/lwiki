@@ -14,8 +14,8 @@ type Props = {
 const BusinessPreviewContainer: FunctionComponent<Props> = ({ business }) => {
     const colors = useColor();
     const changeRoute = useCallback(() => {
-        router.push(`/manage_business/${business.businessId}/general_information`, undefined, { shallow: true });
-    }, [business.businessId]);
+        router.push(`/manage_business/${business.shortId}/general_information`, undefined, { shallow: true });
+    }, [business.shortId]);
     return (
         <Grid
             templateRows={{ base: 'repeat(16, 1fr)', md: 'repeat(1, 1fr)' }}

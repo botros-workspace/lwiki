@@ -1,7 +1,7 @@
 import { object, string, ref, mixed } from 'yup';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
-function checkIfFilesAreTooBig(files?: File[]): boolean {
+export function checkIfFilesAreTooBig(files?: File[]): boolean {
     let valid = true;
     if (files?.length !== 1) {
         valid = false;
@@ -15,7 +15,7 @@ function checkIfFilesAreTooBig(files?: File[]): boolean {
     return valid;
 }
 
-function checkIfFilesAreCorrectType(files?: File[]): boolean {
+export function checkIfFilesAreCorrectType(files?: File[]): boolean {
     let valid = false;
     if (files?.length !== 1) {
         valid = false;

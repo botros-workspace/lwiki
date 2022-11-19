@@ -1,4 +1,4 @@
-export interface BusinessOwnerRegisterFormAttribute {
+export interface BusinessOwnerRegisterFormAttributes {
     email: string;
     phoneNumber: string;
     password: string;
