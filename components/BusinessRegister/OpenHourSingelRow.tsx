@@ -23,11 +23,7 @@ const OpenHourSingelRow: FunctionComponent<Props> = ({ singelRow, handleOpenHour
                         w="90%"
                         type="time"
                         value={singelRow.first_period_open}
-                        boxShadow={
-                            continuousService || singelRow.first_period_open !== undefined
-                                ? '10px 10px 8px green'
-                                : 'none'
-                        }
+                        boxShadow={continuousService ? '10px 10px 8px green' : 'none'}
                         disabled={continuousService}
                         onChange={(e) =>
                             handleOpenHourInput(singelRow.day, OpenHourTypes.FIRST_PERIOD_OPEN, e.target.value)
@@ -44,11 +40,7 @@ const OpenHourSingelRow: FunctionComponent<Props> = ({ singelRow, handleOpenHour
                         w="90%"
                         type="time"
                         value={singelRow.first_period_close}
-                        boxShadow={
-                            continuousService || singelRow.first_period_close !== undefined
-                                ? '10px 10px 8px green'
-                                : 'none'
-                        }
+                        boxShadow={continuousService ? '10px 10px 8px green' : 'none'}
                         disabled={continuousService}
                         onChange={(e) =>
                             handleOpenHourInput(singelRow.day, OpenHourTypes.FIRST_PERIOD_CLOSE, e.target.value)
@@ -67,11 +59,7 @@ const OpenHourSingelRow: FunctionComponent<Props> = ({ singelRow, handleOpenHour
                         w="90%"
                         type="time"
                         value={singelRow.second_period_open}
-                        boxShadow={
-                            continuousService || singelRow.second_period_open !== undefined
-                                ? '10px 10px 8px green'
-                                : 'none'
-                        }
+                        boxShadow={continuousService ? '10px 10px 8px green' : 'none'}
                         disabled={continuousService}
                         onChange={(e) =>
                             handleOpenHourInput(singelRow.day, OpenHourTypes.SECOND_PERIOD_OPEN, e.target.value)
@@ -89,11 +77,7 @@ const OpenHourSingelRow: FunctionComponent<Props> = ({ singelRow, handleOpenHour
                         w="90%"
                         type="time"
                         value={singelRow.second_period_close}
-                        boxShadow={
-                            continuousService || singelRow.second_period_close !== undefined
-                                ? '10px 10px 8px green'
-                                : 'none'
-                        }
+                        boxShadow={continuousService ? '10px 10px 8px green' : 'none'}
                         disabled={continuousService}
                         onChange={(e) =>
                             handleOpenHourInput(singelRow.day, OpenHourTypes.SECOND_PERIOD_CLOSE, e.target.value)

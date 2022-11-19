@@ -23,6 +23,11 @@ function MyApp({ Component, pageProps }: AppProps) {
                                     ...activeLabelStyles,
                                 },
                             },
+                            // eslint-disable-next-line max-len
+                            'input:not(:placeholder-shown) + label, .chakra-select__wrapper + label, textarea:not(:placeholder-shown) ~ label':
+                                {
+                                    ...activeLabelStyles,
+                                },
                             label: {
                                 top: 0,
                                 left: 0,

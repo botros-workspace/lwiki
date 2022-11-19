@@ -13,7 +13,7 @@ const FeaturesContainer: FunctionComponent<Props> = ({ selectedFeatures, setSele
     return (
         <SimpleGrid
             columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
-            mt={8}
+            my={8}
             columnGap={8}
             rowGap={8}
             w="100%"

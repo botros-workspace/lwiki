@@ -169,8 +169,8 @@ const GeneralInformationContainer: FunctionComponent<Props> = ({
                 </Flex>
                 <Flex flexDir={{ base: 'column', md: 'row' }} justifyContent="center" gap={{ base: 6, md: 16 }} mt={6}>
                     <Flex w={{ base: '90%', sm: '65%', md: '90%' }} m="auto" flexDir="column" gap={6}>
-                        <FormControl variant="floating" id="name" isRequired>
-                            <Input placeholder="Ex:Pizza Hut" _placeholder={{ fontSize: 'xs' }} {...register('name')} />
+                        <FormControl variant="floating" isRequired>
+                            <Input type="text" {...register('name')} />
                             <FormLabel rounded="full" fontSize={{ base: 'sm', md: 'lg' }}>
                                 Name
                             </FormLabel>
@@ -181,12 +181,8 @@ const GeneralInformationContainer: FunctionComponent<Props> = ({
                             )}
                         </FormControl>
                         <Flex flexDir={{ base: 'column', lg: 'row' }} gap={6}>
-                            <FormControl variant="floating" id="street" isRequired>
-                                <Input
-                                    placeholder="Ex:New York street"
-                                    _placeholder={{ fontSize: 'xs' }}
-                                    {...register('street')}
-                                />
+                            <FormControl variant="floating" isRequired>
+                                <Input type="text" {...register('street')} />
                                 <FormLabel rounded="full" fontSize={{ base: 'sm', md: 'lg' }}>
                                     Street
                                 </FormLabel>
@@ -197,11 +193,7 @@ const GeneralInformationContainer: FunctionComponent<Props> = ({
                                 )}
                             </FormControl>
                             <FormControl variant="floating" id="building_number" isRequired>
-                                <Input
-                                    placeholder="Ex: 12/5"
-                                    _placeholder={{ fontSize: 'xs' }}
-                                    {...register('building_number')}
-                                />
+                                <Input type="text" {...register('building_number')} />
                                 <FormLabel rounded="full" w="94%" fontSize={{ base: 'sm', md: 'lg' }}>
                                     Building number
                                 </FormLabel>
@@ -320,11 +312,7 @@ const GeneralInformationContainer: FunctionComponent<Props> = ({
                     </Flex>
                     <Flex w={{ base: '90%', sm: '65%', md: '90%' }} m="auto" flexDir="column" gap={6}>
                         <FormControl variant="floating" id="street" isRequired>
-                            <Input
-                                placeholder="Ex:New York street"
-                                _placeholder={{ fontSize: 'xs' }}
-                                {...register('street')}
-                            />
+                            <Input type="text" {...register('street')} />
                             <FormLabel rounded="full" fontSize={{ base: 'sm', md: 'lg' }}>
                                 Phone number
                             </FormLabel>
@@ -335,11 +323,7 @@ const GeneralInformationContainer: FunctionComponent<Props> = ({
                             )}
                         </FormControl>
                         <FormControl variant="floating" id="street" isRequired>
-                            <Input
-                                placeholder="Ex:New York street"
-                                _placeholder={{ fontSize: 'xs' }}
-                                {...register('email')}
-                            />
+                            <Input type="email" {...register('email')} />
                             <FormLabel rounded="full" fontSize={{ base: 'sm', md: 'lg' }}>
                                 Business email
                             </FormLabel>
@@ -350,14 +334,7 @@ const GeneralInformationContainer: FunctionComponent<Props> = ({
                             )}
                         </FormControl>
                         <FormControl variant="floating" id="street" isRequired>
-                            <Input
-                                placeholder="Ex:20$"
-                                _placeholder={{ fontSize: 'xs' }}
-                                {...register('street')}
-                                w="90%"
-                                type="number"
-                            />{' '}
-                            $
+                            <Input type="number" {...register('street')} w="90%" /> $
                             <FormLabel rounded="full" fontSize={{ base: 'sm', md: 'lg' }}>
                                 Average per person
                             </FormLabel>

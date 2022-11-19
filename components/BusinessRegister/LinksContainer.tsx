@@ -9,7 +9,7 @@ import { UseFormRegister, FieldValues } from 'react-hook-form';
 type Props = { register: UseFormRegister<FieldValues>; errors: any };
 
 const LinksContainer: FunctionComponent<Props> = ({ register, errors }) => (
-    <Flex w="100%" h="100%" flexDir="column" justifyContent="center" gap={6} mb={4}>
+    <Flex w="100%" h="100%" flexDir="column" justifyContent="center" gap={6} my={6}>
         <Flex mx="auto" gap={{ base: 2, md: 6 }} h={{ base: 8, md: 12 }}>
             <Icon as={FaFacebookSquare} fontSize={{ base: 'xl', md: '3xl' }} mt={{ base: 2, md: 1 }} />
             <FormControl variant="floating">
