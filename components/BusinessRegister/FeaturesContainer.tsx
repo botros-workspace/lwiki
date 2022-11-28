@@ -18,8 +18,7 @@ const FeaturesContainer: FunctionComponent<Props> = ({ selectedFeatures, setSele
             rowGap={8}
             w="100%"
             h="100%"
-            justifyItems="center"
-            mx="auto">
+            justifyItems="center">
             {allFeatures.map((feature) => (
                 <FeatureTemplate
                     feature={feature}

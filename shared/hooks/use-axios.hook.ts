@@ -7,10 +7,18 @@ export type axios = {
         axiosInstance: AxiosInstance,
         url: string,
         requestConfig: Record<string, unknown> | FormData
-    ) => void;
-    handleGetRequest: (axiosInstance: AxiosInstance, url: string) => void;
-    handlePutRequest: (axiosInstance: AxiosInstance, url: string, requestConfig: Record<string, unknown>) => void;
-    handleDeleteRequest: (axiosInstance: AxiosInstance, url: string, requestConfig: Record<string, unknown>) => void;
+    ) => Promise<any>;
+    handleGetRequest: (axiosInstance: AxiosInstance, url: string) => Promise<any>;
+    handlePutRequest: (
+        axiosInstance: AxiosInstance,
+        url: string,
+        requestConfig: Record<string, unknown>
+    ) => Promise<any>;
+    handleDeleteRequest: (
+        axiosInstance: AxiosInstance,
+        url: string,
+        requestConfig: Record<string, unknown>
+    ) => Promise<any>;
 };
 export function useAxios(): axios {
     const [controller, setController] = useState<AbortController>();

@@ -46,7 +46,6 @@ const OpenHoursContainer: FunctionComponent<Props> = ({
                         color={continuousService ? 'green.400' : 'red'}
                         as={continuousService ? BsCheck2All : AiOutlineStop}
                         fontSize={{ base: 'xl', md: '3xl' }}
-                        mt={1}
                     />
                 </Flex>
             </Flex>

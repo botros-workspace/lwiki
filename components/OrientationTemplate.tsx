@@ -8,8 +8,8 @@ import { OrientationName } from '../shared/enum/orientation-types.enum';
 type Props = {
     orientation: OrientationName;
     isSelected: boolean;
-    selectedOrientations: OrientationName[];
-    setSelectedOrientations: (orientation: OrientationName[]) => void;
+    selectedOrientations?: OrientationName[];
+    setSelectedOrientations?: (orientation: OrientationName[]) => void;
 };
 const OrientationTemplate: FunctionComponent<Props> = ({
     orientation,
@@ -19,6 +19,7 @@ const OrientationTemplate: FunctionComponent<Props> = ({
 }) => {
     const handleFeatureClick = useCallback(
         (selectedOrientation: OrientationName) => {
+            if (!selectedOrientations || !setSelectedOrientations) return;
             const index = selectedOrientations.findIndex((o) => o === orientation);
             if (index === -1) {
                 setSelectedOrientations([...selectedOrientations, selectedOrientation]);
@@ -33,7 +34,7 @@ const OrientationTemplate: FunctionComponent<Props> = ({
     return (
         <Box h={6} cursor="pointer">
             <Flex
-                w={48}
+                w={40}
                 gap={2}
                 borderRadius="full"
                 borderWidth={2}
@@ -47,8 +48,8 @@ const OrientationTemplate: FunctionComponent<Props> = ({
                         color={isSelected ? 'green.300' : 'gray.400'}
                     />
                 </Flex>
-                <Flex h="100%" w="100%">
-                    <Text m="auto" fontWeight="bold" fontSize={{ base: 'xs', md: 'sm' }}>
+                <Flex h="100%" w="100%" m="auto">
+                    <Text m="auto" fontWeight="semibold" fontSize={{ base: 'xs', md: 'sm' }}>
                         {capatalizeAndRemoveUnderScore(orientation)}
                     </Text>
                 </Flex>

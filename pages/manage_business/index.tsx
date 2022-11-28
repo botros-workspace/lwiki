@@ -3,24 +3,23 @@ import { Box, Button, Center, Flex, Text, VStack } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import { useRecoilValue } from 'recoil';
 import Router from 'next/router';
-import { allBusinessState } from '../../shared/recoilStates/user.state';
 import { Business } from '../../shared/interfaces/Business';
 import BusinessPreviewContainer from '../../components/BusinessManage/AllBusinessPreview/BusinessPreviewContainer';
 import { REGISTER_BUSINESS_PAGE } from '../../shared/constants/endpoints';
 import { useLoadingProgressBar } from '../../shared/hooks/use-loading-progressBar.hook';
+import { allBusinessState } from '../../shared/recoilStates/all-business.state';
 
 const ManageBusiness: NextPage = () => {
-    const businessState = useRecoilValue(allBusinessState);
+    const allbusinessState = useRecoilValue(allBusinessState);
     const [allBusiness, setallBusiness] = useState<Array<Business>>();
     const { showLoadingBar, hideLoadingBar } = useLoadingProgressBar();
     useEffect(() => {
-        setallBusiness(businessState);
+        if (!allBusiness) {
+            showLoadingBar();
+            setallBusiness(allbusinessState);
+        } else hideLoadingBar();
         console.log(allBusiness);
-    }, [allBusiness, businessState]);
-    useEffect(() => {
-        if (!allBusiness) showLoadingBar();
-        else hideLoadingBar();
-    }, [allBusiness, hideLoadingBar, showLoadingBar]);
+    }, [allBusiness, allbusinessState, hideLoadingBar, showLoadingBar]);
 
     return (
         <Box w="100%" h="100%">

@@ -129,6 +129,7 @@ const Home: NextPage = () => {
                                 value={country}
                                 style={{
                                     width: '100%',
+                                    background: 'none',
                                 }}
                                 onChange={(val) => {
                                     setCountry(val);
@@ -151,6 +152,7 @@ const Home: NextPage = () => {
                                 onChange={(val) => setRegion(val)}
                                 style={{
                                     width: '100%',
+                                    background: 'none',
                                 }}
                             />
                         </Flex>

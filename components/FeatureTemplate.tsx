@@ -8,12 +8,13 @@ import { capatalizeAndRemoveUnderScore } from '../shared/functions';
 type Props = {
     feature: FeatureName;
     isSelected: boolean;
-    selectedFeatures: FeatureName[];
-    setSelectedFeatures: (features: FeatureName[]) => void;
+    selectedFeatures?: FeatureName[];
+    setSelectedFeatures?: (features: FeatureName[]) => void;
 };
 const FeatureTemplate: FunctionComponent<Props> = ({ feature, isSelected, selectedFeatures, setSelectedFeatures }) => {
     const handleFeatureClick = useCallback(
         (selectedFeature: FeatureName) => {
+            if (!selectedFeatures || !setSelectedFeatures) return;
             const index = selectedFeatures.findIndex((f) => f === feature);
             if (index === -1) {
                 setSelectedFeatures([...selectedFeatures, selectedFeature]);
@@ -28,7 +29,7 @@ const FeatureTemplate: FunctionComponent<Props> = ({ feature, isSelected, select
     return (
         <Box h={6} cursor="pointer">
             <Flex
-                w={48}
+                w={52}
                 gap={2}
                 borderRadius="full"
                 borderWidth={2}
@@ -42,8 +43,8 @@ const FeatureTemplate: FunctionComponent<Props> = ({ feature, isSelected, select
                         color={isSelected ? 'green.300' : 'gray.400'}
                     />
                 </Flex>
-                <Flex h="100%" w="100%">
-                    <Text m="auto" fontWeight="bold" fontSize={{ base: 'xs', md: 'sm' }}>
+                <Flex h="100%" w="100%" m="auto">
+                    <Text m="auto" fontWeight="semibold" fontSize={{ base: 'xs', md: 'sm' }}>
                         {capatalizeAndRemoveUnderScore(feature)}
                     </Text>
                 </Flex>

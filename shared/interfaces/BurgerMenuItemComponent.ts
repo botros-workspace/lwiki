@@ -7,4 +7,5 @@ export interface BurgerMenuItemComponent {
     show: boolean;
     changeRoute: (route: string) => void;
     iconColor?: string;
+    isActive: boolean;
 }

@@ -10,7 +10,7 @@ type Props = { register: UseFormRegister<FieldValues>; errors: any };
 
 const LinksContainer: FunctionComponent<Props> = ({ register, errors }) => (
     <Flex w="100%" h="100%" flexDir="column" justifyContent="center" gap={6} my={6}>
-        <Flex mx="auto" gap={{ base: 2, md: 6 }} h={{ base: 8, md: 12 }}>
+        <Flex mx="auto" gap={{ base: 2, md: 6 }} h={{ base: 14, md: 16 }}>
             <Icon as={FaFacebookSquare} fontSize={{ base: 'xl', md: '3xl' }} mt={{ base: 2, md: 1 }} />
             <FormControl variant="floating">
                 <Input w={{ base: '100%', sm: 72, md: 96 }} type="text" {...register('facebook')} />
@@ -25,7 +25,7 @@ const LinksContainer: FunctionComponent<Props> = ({ register, errors }) => (
             </FormControl>
         </Flex>
 
-        <Flex mx="auto" gap={{ base: 2, md: 6 }} h={{ base: 8, md: 12 }}>
+        <Flex mx="auto" gap={{ base: 2, md: 6 }} h={{ base: 14, md: 16 }}>
             <Icon as={BsInstagram} fontSize={{ base: 'xl', md: '3xl' }} mt={{ base: 2, md: 1 }} />
             <FormControl variant="floating">
                 <Input w={{ base: '100%', sm: 72, md: 96 }} type="text" {...register('instagram')} />
@@ -39,26 +39,12 @@ const LinksContainer: FunctionComponent<Props> = ({ register, errors }) => (
                 )}
             </FormControl>
         </Flex>
-        <Flex mx="auto" gap={{ base: 2, md: 6 }} h={{ base: 8, md: 12 }}>
+        <Flex mx="auto" gap={{ base: 2, md: 6 }} h={{ base: 14, md: 16 }}>
             <Icon as={SiGooglemaps} fontSize={{ base: 'xl', md: '3xl' }} mt={{ base: 2, md: 1 }} />
-            <FormControl variant="floating">
-                <Input w={{ base: '100%', sm: 72, md: 96 }} type="text" {...register('twitter')} />
-                <FormLabel rounded="full" fontSize={{ base: 'sm', xl: 'lg' }}>
-                    Google maps link
-                </FormLabel>
-                {errors.twitter?.message && (
-                    <Text color="red" fontSize={{ base: 'xs', md: 'md' }} ml={2}>
-                        {errors.twitter?.message}
-                    </Text>
-                )}
-            </FormControl>
-        </Flex>
-        <Flex mx="auto" gap={{ base: 2, md: 6 }} h={{ base: 8, md: 12 }}>
-            <Icon as={FaTwitter} fontSize={{ base: 'xl', md: '3xl' }} mt={{ base: 2, md: 1 }} />
             <FormControl variant="floating">
                 <Input w={{ base: '100%', sm: 72, md: 96 }} type="text" {...register('google_maps')} />
                 <FormLabel rounded="full" fontSize={{ base: 'sm', xl: 'lg' }}>
-                    Twitter link
+                    Google maps link
                 </FormLabel>
                 {errors.google_maps?.message && (
                     <Text color="red" fontSize={{ base: 'xs', md: 'md' }} ml={2}>
@@ -67,7 +53,21 @@ const LinksContainer: FunctionComponent<Props> = ({ register, errors }) => (
                 )}
             </FormControl>
         </Flex>
-        <Flex mx="auto" gap={{ base: 2, md: 6 }} h={{ base: 8, md: 12 }}>
+        <Flex mx="auto" gap={{ base: 2, md: 6 }} h={{ base: 14, md: 16 }}>
+            <Icon as={FaTwitter} fontSize={{ base: 'xl', md: '3xl' }} mt={{ base: 2, md: 1 }} />
+            <FormControl variant="floating">
+                <Input w={{ base: '100%', sm: 72, md: 96 }} type="text" {...register('twitter')} />
+                <FormLabel rounded="full" fontSize={{ base: 'sm', xl: 'lg' }}>
+                    Twitter link
+                </FormLabel>
+                {errors.twitter?.message && (
+                    <Text color="red" fontSize={{ base: 'xs', md: 'md' }} ml={2}>
+                        {errors.twitter?.message}
+                    </Text>
+                )}
+            </FormControl>
+        </Flex>
+        <Flex mx="auto" gap={{ base: 2, md: 6 }} h={{ base: 14, md: 16 }}>
             <Icon as={MdAlternateEmail} fontSize={{ base: 'xl', md: '3xl' }} mt={{ base: 2, md: 1 }} />
             <FormControl variant="floating">
                 <Input w={{ base: '100%', sm: 72, md: 96 }} type="text" {...register('website')} />

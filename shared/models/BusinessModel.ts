@@ -139,7 +139,6 @@ export class BusinessModel {
         const averagePerPerson: number = parseInt(average_per_person, 10);
         open_hours.forEach((singelOpenHour: any) => {
             const day: OpenHour = {
-                id: singelOpenHour.id,
                 day: singelOpenHour.day,
                 first_period_open: singelOpenHour.first_period_open,
                 first_period_close: singelOpenHour.first_period_close,
@@ -183,24 +182,24 @@ export class BusinessModel {
                 newOrientations.push(OrientationName.UNDEFINED_ORIENTATION);
             }
         });
-        if (continuous_service === 'false') {
+        if (continuous_service.toString() === 'false') {
             continuousService = false;
-        } else if (continuous_service === 'true') {
+        } else if (continuous_service.toString() === 'true') {
             continuousService = true;
         }
-        if (is_published === 'false') {
+        if (is_published.toString() === 'false') {
             isPublished = false;
-        } else if (is_published === 'true') {
+        } else if (is_published.toString() === 'true') {
             isPublished = true;
         }
-        if (reservation_required === 'false') {
+        if (reservation_required.toString() === 'false') {
             reservationRequired = false;
-        } else if (reservation_required === 'true') {
+        } else if (reservation_required.toString() === 'true') {
             reservationRequired = true;
         }
-        if (is_reservation_system_active === 'false') {
+        if (is_reservation_system_active.toString() === 'false') {
             isReservationSystemActive = false;
-        } else if (is_reservation_system_active === 'true') {
+        } else if (is_reservation_system_active.toString() === 'true') {
             isReservationSystemActive = true;
         }
 

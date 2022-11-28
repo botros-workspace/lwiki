@@ -4,7 +4,7 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import { Business } from '../../../shared/interfaces/Business';
-import { allBusinessState } from '../../../shared/recoilStates/user.state';
+import { allBusinessState } from '../../../shared/recoilStates/all-business.state';
 
 const ManageProducts: NextPage = () => {
     const allBusiness = useRecoilValue(allBusinessState);
@@ -12,13 +12,13 @@ const ManageProducts: NextPage = () => {
     const router = useRouter();
     const businessUniqueId = router.query.businessId;
     useEffect(() => {
-        setBusiness(allBusiness.find((b) => b.businessId === businessUniqueId));
+        setBusiness(allBusiness.find((b) => b.shortId === businessUniqueId));
     }, [allBusiness, businessUniqueId]);
 
     return (
         <Box w="100%" h="100%">
             <Center w="100%" h="100%">
-                Test{business?.businessEmail}
+                {business?.products.length}
             </Center>
         </Box>
     );

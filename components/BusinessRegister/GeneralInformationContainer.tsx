@@ -13,8 +13,9 @@ import {
     Select,
     Badge,
     Icon,
+    SimpleGrid,
 } from '@chakra-ui/react';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
 import { AiOutlineCloudUpload, AiOutlineStop } from 'react-icons/ai';
@@ -25,6 +26,7 @@ import { BadgeTitle } from '../../shared/enum/badge-types.enum';
 import { BusinessTypeName } from '../../shared/enum/business-type.enum';
 import { PaymentMethodName } from '../../shared/enum/payment-method-types.enum';
 import { capatalizeAndRemoveUnderScore } from '../../shared/functions';
+import { useColor } from '../../shared/hooks/use-color.hook';
 import { BusinessRegisterationForm } from '../../shared/interfaces/BusinessRegisterationForm';
 import BadgeImage from '../BadgeImage';
 import PaymentMethodImage from '../PaymentMethodImage';
@@ -35,12 +37,15 @@ type Props = {
     errors: any;
     selectedLogo: File | undefined;
     setSelectedLogo: (logo: File | undefined) => void;
-    onSubmitHandler: () => void;
+    setBusinessType: (businessType: BusinessTypeName) => void;
+    businessType: BusinessTypeName;
+    country: string;
+    region: string;
+    setCountry: (country: string) => void;
+    setRegion: (region: string) => void;
     selectedPaymentMethods: Array<PaymentMethodName>;
     handlePaymentMethodSelection: (payemntMethod: PaymentMethodName) => void;
     newBusiness: BusinessRegisterationForm | undefined;
-    setBusinessType: (businessType: BusinessTypeName) => void;
-    businessType: BusinessTypeName;
     selectedBadges: Array<BadgeTitle>;
     handleBadgeSelection: (badge: BadgeTitle) => void;
     setIsReservationRequired: () => void;
@@ -52,9 +57,12 @@ const GeneralInformationContainer: FunctionComponent<Props> = ({
     errors,
     selectedLogo,
     setSelectedLogo,
-    onSubmitHandler,
     setBusinessType,
     businessType,
+    country,
+    region,
+    setCountry,
+    setRegion,
     selectedPaymentMethods,
     handlePaymentMethodSelection,
     newBusiness,
@@ -63,14 +71,13 @@ const GeneralInformationContainer: FunctionComponent<Props> = ({
     setIsReservationRequired,
     isReservationRequired,
 }) => {
-    const [country, setCountry] = useState('');
-    const [region, setRegion] = useState('Select region');
     const allPaymentMethods: Array<PaymentMethodName> = Object.values(PaymentMethodName).filter(
         (paymentMethod) => paymentMethod !== PaymentMethodName.UNDEFINED_METHOD
     );
     const allBadges: Array<BadgeTitle> = Object.values(BadgeTitle).filter(
         (badge) => badge !== BadgeTitle.UNDEFINED_BADGE
     );
+    const colors = useColor();
     return (
         <Grid
             templateRows={{ base: 'repeat(5, 1fr)', md: 'repeat(10, 1fr)' }}
@@ -159,6 +166,7 @@ const GeneralInformationContainer: FunctionComponent<Props> = ({
                         m="auto"
                         value={businessType}
                         onChange={(e) => setBusinessType(e.target.value as BusinessTypeName)}>
+                        <option value={BusinessTypeName.UNDEFINED_BUSINESS_TYPE}> </option>
                         {Object.keys(BusinessTypeName).map(
                             (itemType) =>
                                 itemType !== BusinessTypeName.UNDEFINED_BUSINESS_TYPE && (
@@ -194,7 +202,7 @@ const GeneralInformationContainer: FunctionComponent<Props> = ({
                             </FormControl>
                             <FormControl variant="floating" id="building_number" isRequired>
                                 <Input type="text" {...register('building_number')} />
-                                <FormLabel rounded="full" w="94%" fontSize={{ base: 'sm', md: 'lg' }}>
+                                <FormLabel rounded="full" fontSize={{ base: 'sm', md: 'lg' }}>
                                     Building number
                                 </FormLabel>
                                 {errors.building_number?.message && (
@@ -217,8 +225,9 @@ const GeneralInformationContainer: FunctionComponent<Props> = ({
                                 <CountryDropdown
                                     style={{
                                         width: '100%',
-                                        background: 'white',
+                                        background: 'none',
                                     }}
+                                    value={country}
                                     onChange={(val) => {
                                         setCountry(val);
                                         setRegion('');
@@ -228,11 +237,6 @@ const GeneralInformationContainer: FunctionComponent<Props> = ({
                             <FormLabel rounded="full" fontSize={{ base: 'sm', md: 'lg' }}>
                                 Country
                             </FormLabel>
-                            {errors.name?.message && (
-                                <Text color="red" fontSize={{ base: 'xs', md: 'md' }} ml={2}>
-                                    {errors.name?.message}
-                                </Text>
-                            )}
                         </FormControl>
                         <FormControl variant="floating" id="name" isRequired>
                             <Box
@@ -250,18 +254,13 @@ const GeneralInformationContainer: FunctionComponent<Props> = ({
                                     onChange={(val) => setRegion(val)}
                                     style={{
                                         width: '100%',
-                                        background: 'white',
+                                        background: 'none',
                                     }}
                                 />
                             </Box>
                             <FormLabel rounded="full" fontSize={{ base: 'sm', md: 'lg' }}>
                                 Region
                             </FormLabel>
-                            {errors.name?.message && (
-                                <Text color="red" fontSize={{ base: 'xs', md: 'md' }} ml={2}>
-                                    {errors.name?.message}
-                                </Text>
-                            )}
                         </FormControl>
                         <Center>
                             <Text
@@ -271,32 +270,35 @@ const GeneralInformationContainer: FunctionComponent<Props> = ({
                                 textDecor="underline">
                                 Badges
                             </Text>
-                            {!selectedPaymentMethods.length && newBusiness && (
-                                <Text color="red" fontSize={{ base: 'xs', md: 'md' }} ml={2}>
-                                    Required!
-                                </Text>
-                            )}
                         </Center>
 
-                        <Flex flexDir="row" justifyContent="space-evenly" w="100%" h={10}>
+                        <SimpleGrid minChildWidth="70px" spacing="20px" w="100%">
                             {allBadges.map((badge) => (
                                 <Flex
-                                    left={0}
-                                    _hover={{ color: 'red' }}
+                                    _hover={{ bg: colors.backgroundGrayColor }}
                                     cursor="pointer"
+                                    borderWidth={2}
+                                    borderColor={
+                                        selectedBadges.includes(badge)
+                                            ? colors.backgroundGrayColor
+                                            : colors.mainBackground
+                                    }
+                                    p={1}
+                                    borderRadius="lg"
                                     onClick={() => handleBadgeSelection(badge)}>
                                     <TooltipTemplate
                                         label={capatalizeAndRemoveUnderScore(badge.toString())}
                                         hasArrow
                                         placement="bottom"
                                         shouldWrapChildren>
-                                        <Center color={selectedBadges.includes(badge) ? 'red.600' : 'gray.800'}>
+                                        <Center h={20} color={selectedBadges.includes(badge) ? 'red.600' : 'gray.800'}>
                                             <BadgeImage badge={badge} />
                                         </Center>
                                         <Center>
                                             <Badge
                                                 fontSize={{ base: 'xs', md: 'xl' }}
                                                 variant="gohst"
+                                                mt={2}
                                                 color={selectedBadges.includes(badge) ? 'gray.800' : 'blue.400'}>
                                                 {selectedBadges.includes(badge) ? (
                                                     <RiDeleteBin6Line />
@@ -308,39 +310,39 @@ const GeneralInformationContainer: FunctionComponent<Props> = ({
                                     </TooltipTemplate>
                                 </Flex>
                             ))}
-                        </Flex>
+                        </SimpleGrid>
                     </Flex>
                     <Flex w={{ base: '90%', sm: '65%', md: '90%' }} m="auto" flexDir="column" gap={6}>
-                        <FormControl variant="floating" id="street" isRequired>
-                            <Input type="text" {...register('street')} />
+                        <FormControl variant="floating" isRequired>
+                            <Input type="text" {...register('phone_number')} />
                             <FormLabel rounded="full" fontSize={{ base: 'sm', md: 'lg' }}>
                                 Phone number
                             </FormLabel>
-                            {errors.street?.message && (
+                            {errors.phone_number?.message && (
                                 <Text color="red" fontSize={{ base: 'xs', md: 'md' }} ml={2}>
-                                    {errors.street?.message}
+                                    {errors.phone_number?.message}
                                 </Text>
                             )}
                         </FormControl>
-                        <FormControl variant="floating" id="street" isRequired>
-                            <Input type="email" {...register('email')} />
+                        <FormControl variant="floating" isRequired>
+                            <Input type="email" {...register('business_email')} />
                             <FormLabel rounded="full" fontSize={{ base: 'sm', md: 'lg' }}>
                                 Business email
                             </FormLabel>
-                            {errors.street?.message && (
+                            {errors.business_email?.message && (
                                 <Text color="red" fontSize={{ base: 'xs', md: 'md' }} ml={2}>
-                                    {errors.street?.message}
+                                    {errors.business_email?.message}
                                 </Text>
                             )}
                         </FormControl>
-                        <FormControl variant="floating" id="street" isRequired>
-                            <Input type="number" {...register('street')} w="90%" /> $
+                        <FormControl variant="floating" isRequired>
+                            <Input type="number" {...register('average_per_person')} w="90%" defaultValue={0} /> $
                             <FormLabel rounded="full" fontSize={{ base: 'sm', md: 'lg' }}>
-                                Average per person
+                                Average cost per person
                             </FormLabel>
-                            {errors.street?.message && (
+                            {errors.average_per_person?.message && (
                                 <Text color="red" fontSize={{ base: 'xs', md: 'md' }} ml={2}>
-                                    {errors.street?.message}
+                                    {errors.average_per_person?.message}
                                 </Text>
                             )}
                         </FormControl>
@@ -363,7 +365,6 @@ const GeneralInformationContainer: FunctionComponent<Props> = ({
                                     color={isReservationRequired ? 'green.400' : 'red'}
                                     as={isReservationRequired ? BsCheck2All : AiOutlineStop}
                                     fontSize={{ base: 'xl', md: '3xl' }}
-                                    mt={1}
                                 />
                             </Flex>
                         </Flex>
@@ -382,44 +383,62 @@ const GeneralInformationContainer: FunctionComponent<Props> = ({
                             )}
                         </Center>
 
-                        <Flex flexDir="row" justifyContent="space-evenly" w="100%" h={10}>
+                        <SimpleGrid
+                            minChildWidth={{ base: '70px', md: '80px' }}
+                            spacing="20px"
+                            w="100%"
+                            justifyContent="center">
                             {allPaymentMethods.map((selectedMethod) => (
                                 <Flex
-                                    left={0}
-                                    _hover={{ color: 'red' }}
+                                    justifyContent="center"
+                                    _hover={{ color: 'tomato' }}
                                     cursor="pointer"
+                                    borderWidth={2}
+                                    borderColor={
+                                        selectedPaymentMethods.includes(selectedMethod)
+                                            ? colors.backgroundGrayColor
+                                            : colors.mainBackground
+                                    }
+                                    p={1}
+                                    borderRadius="lg"
                                     onClick={() => handlePaymentMethodSelection(selectedMethod)}>
                                     <TooltipTemplate
                                         label={capatalizeAndRemoveUnderScore(selectedMethod.toString())}
                                         hasArrow
                                         placement="bottom"
                                         shouldWrapChildren>
-                                        <Center
+                                        <Flex
+                                            justifyContent="center"
                                             color={
-                                                selectedPaymentMethods.includes(selectedMethod) ? 'red.600' : 'gray.800'
+                                                selectedPaymentMethods.includes(selectedMethod) ? 'tomato' : 'gray.800'
                                             }>
                                             <PaymentMethodImage paymentMethod={selectedMethod} />
-                                        </Center>
-                                        <Badge
-                                            fontSize={{ base: 'xs', md: 'xl' }}
-                                            variant="gohst"
-                                            color={
-                                                selectedPaymentMethods.includes(selectedMethod)
-                                                    ? 'gray.800'
-                                                    : 'blue.400'
-                                            }>
-                                            {selectedPaymentMethods.includes(selectedMethod) ? (
-                                                <RiDeleteBin6Line />
-                                            ) : (
-                                                <IoMdAddCircleOutline />
-                                            )}
-                                        </Badge>
+                                        </Flex>
+                                        <Flex justifyContent="center" textAlign="center" h={12}>
+                                            <Text>{capatalizeAndRemoveUnderScore(selectedMethod)}</Text>
+                                        </Flex>
+                                        <Flex justifyContent="center">
+                                            <Badge
+                                                fontSize={{ base: 'xs', md: 'xl' }}
+                                                mt={4}
+                                                variant="gohst"
+                                                color={
+                                                    selectedPaymentMethods.includes(selectedMethod)
+                                                        ? 'gray.800'
+                                                        : 'blue.400'
+                                                }>
+                                                {selectedPaymentMethods.includes(selectedMethod) ? (
+                                                    <RiDeleteBin6Line />
+                                                ) : (
+                                                    <IoMdAddCircleOutline />
+                                                )}
+                                            </Badge>
+                                        </Flex>
                                     </TooltipTemplate>
                                 </Flex>
                             ))}
-                        </Flex>
+                        </SimpleGrid>
                     </Flex>
-                    {/* <Button onClick={onSubmitHandler} /> */}
                 </Flex>
             </GridItem>
         </Grid>

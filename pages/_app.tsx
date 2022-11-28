@@ -6,8 +6,10 @@ import 'focus-visible/dist/focus-visible';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
 import Layout from '../components/Layout/Layout';
+import { useColor } from '../shared/hooks/use-color.hook';
 
 function MyApp({ Component, pageProps }: AppProps) {
+    const colors = useColor();
     const activeLabelStyles = {
         transform: 'scale(0.85) translateY(-24px)',
     };
@@ -33,10 +35,10 @@ function MyApp({ Component, pageProps }: AppProps) {
                                 left: 0,
                                 zIndex: 2,
                                 position: 'absolute',
-                                backgroundColor: 'white',
+                                backgroundColor: colors.backgroundGrayColor,
                                 pointerEvents: 'none',
                                 mx: 3,
-                                px: 1,
+                                px: 2,
                                 my: 2,
                                 transformOrigin: 'left top',
                             },

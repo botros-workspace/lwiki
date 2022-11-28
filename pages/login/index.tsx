@@ -7,16 +7,13 @@ import Router from 'next/router';
 import { useErrorToast } from '../../shared/hooks/use-error-toast.hook';
 import { axiosInstance } from '../../axios/axiosInstance';
 
-import {
-    BusinessOwnerData,
-    businessOwnerDataState,
-    consumerDataState,
-    UserInfo,
-    userInfoState,
-} from '../../shared/recoilStates/user.state';
+import { UserInfo, userInfoState } from '../../shared/recoilStates/user.state';
 import { UserType } from '../../shared/enum/user-type.enum';
 import { useAxios } from '../../shared/hooks/use-axios.hook';
 import { BACKEND_LOGIN_PAGE } from '../../shared/constants/endpoints';
+import { consumerDataState } from '../../shared/recoilStates/consumer.state';
+import { BusinessResponse } from '../../shared/interfaces/Business';
+import { allBusinessResponseState } from '../../shared/recoilStates/all-business.state';
 
 const Login: NextPage = () => {
     const [child, setChild] = useState<string | undefined>(undefined);
@@ -28,7 +25,7 @@ const Login: NextPage = () => {
     const errorToast = useErrorToast();
     const [user, setUser] = useRecoilState<UserInfo>(userInfoState);
     const setConsumerData = useSetRecoilState(consumerDataState);
-    const setBusinessOwnerData = useSetRecoilState<BusinessOwnerData>(businessOwnerDataState);
+    const setAllBusinessState = useSetRecoilState<BusinessResponse[]>(allBusinessResponseState);
     const { handlePostRequest } = useAxios();
     useEffect(() => {
         if (user.userType !== UserType.UNDEFINED_USER) {
@@ -58,10 +55,11 @@ const Login: NextPage = () => {
                         userType: UserType.BUSINESS_OWNER,
                         userId: result.business_owner.business_owner_id,
                     });
-                    setBusinessOwnerData({
-                        all_reservations: result.business_owner.all_reservations,
-                        all_business: result.all_business,
-                    });
+                    setAllBusinessState(result.all_business);
+                    // setBusinessOwnerData({
+                    //     all_reservations: result.business_owner.all_reservations,
+                    //     all_business: result.all_business,
+                    // });
                 }
             }
         } catch (errors: any) {
@@ -75,7 +73,7 @@ const Login: NextPage = () => {
                 });
             }
         }
-    }, [email, errorToast, handlePostRequest, password, setBusinessOwnerData, setConsumerData, setUser]);
+    }, [email, errorToast, handlePostRequest, password, setAllBusinessState, setConsumerData, setUser]);
     return (
         <Box w="100%" minH="100%">
             <Center w="100%" h="100vh" m="auto">

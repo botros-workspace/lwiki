@@ -1,4 +1,4 @@
-import { Flex, FormControl, Input, FormLabel, Text } from '@chakra-ui/react';
+import { Flex, FormControl, Input, FormLabel, Text, FormHelperText } from '@chakra-ui/react';
 import React, { FunctionComponent } from 'react';
 import { OpenHourTypes } from '../../shared/enum/open-hour-types.enum';
 import { OpenHour } from '../../shared/interfaces/OpenHour';
@@ -22,6 +22,13 @@ const OpenHourSingelRow: FunctionComponent<Props> = ({ singelRow, handleOpenHour
                     <Input
                         w="90%"
                         type="time"
+                        borderWidth={2}
+                        borderColor={
+                            (singelRow.first_period_open !== '' && singelRow.first_period_open !== undefined) ||
+                            continuousService
+                                ? 'green.400'
+                                : 'red'
+                        }
                         value={singelRow.first_period_open}
                         boxShadow={continuousService ? '10px 10px 8px green' : 'none'}
                         disabled={continuousService}
@@ -32,6 +39,7 @@ const OpenHourSingelRow: FunctionComponent<Props> = ({ singelRow, handleOpenHour
                     <FormLabel rounded="full" fontSize={{ base: 'sm', xl: 'lg' }}>
                         {continuousService ? 'Open' : 'First shift open'}
                     </FormLabel>
+                    <FormHelperText>From</FormHelperText>
                 </FormControl>
             </Flex>
             <Flex w={{ base: '100%', md: '50%' }}>
@@ -39,6 +47,12 @@ const OpenHourSingelRow: FunctionComponent<Props> = ({ singelRow, handleOpenHour
                     <Input
                         w="90%"
                         type="time"
+                        borderWidth={2}
+                        borderColor={
+                            (singelRow.first_period_close !== '' && singelRow.first_period_close) || continuousService
+                                ? 'green.400'
+                                : 'red'
+                        }
                         value={singelRow.first_period_close}
                         boxShadow={continuousService ? '10px 10px 8px green' : 'none'}
                         disabled={continuousService}
@@ -49,6 +63,7 @@ const OpenHourSingelRow: FunctionComponent<Props> = ({ singelRow, handleOpenHour
                     <FormLabel rounded="full" fontSize={{ base: 'sm', xl: 'lg' }}>
                         {continuousService ? 'Open' : 'First shift close'}
                     </FormLabel>
+                    <FormHelperText>To</FormHelperText>
                 </FormControl>
             </Flex>
         </Flex>
@@ -58,6 +73,13 @@ const OpenHourSingelRow: FunctionComponent<Props> = ({ singelRow, handleOpenHour
                     <Input
                         w="90%"
                         type="time"
+                        borderWidth={2}
+                        borderColor={
+                            (singelRow.second_period_open !== '' && singelRow.second_period_open !== undefined) ||
+                            continuousService
+                                ? 'green.400'
+                                : 'red'
+                        }
                         value={singelRow.second_period_open}
                         boxShadow={continuousService ? '10px 10px 8px green' : 'none'}
                         disabled={continuousService}
@@ -68,6 +90,7 @@ const OpenHourSingelRow: FunctionComponent<Props> = ({ singelRow, handleOpenHour
                     <FormLabel rounded="full" fontSize={{ base: 'sm', xl: 'lg' }}>
                         {continuousService ? 'Open' : 'Second shift open'}
                     </FormLabel>
+                    <FormHelperText>From</FormHelperText>
                 </FormControl>
             </Flex>
 
@@ -76,6 +99,13 @@ const OpenHourSingelRow: FunctionComponent<Props> = ({ singelRow, handleOpenHour
                     <Input
                         w="90%"
                         type="time"
+                        borderWidth={2}
+                        borderColor={
+                            (singelRow.second_period_close !== '' && singelRow.second_period_close !== undefined) ||
+                            continuousService
+                                ? 'green.400'
+                                : 'red'
+                        }
                         value={singelRow.second_period_close}
                         boxShadow={continuousService ? '10px 10px 8px green' : 'none'}
                         disabled={continuousService}
@@ -86,6 +116,7 @@ const OpenHourSingelRow: FunctionComponent<Props> = ({ singelRow, handleOpenHour
                     <FormLabel rounded="full" fontSize={{ base: 'sm', xl: 'lg' }}>
                         {continuousService ? 'Open' : 'Second shift close'}
                     </FormLabel>
+                    <FormHelperText>To</FormHelperText>
                 </FormControl>
             </Flex>
         </Flex>

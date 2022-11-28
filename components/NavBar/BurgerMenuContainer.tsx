@@ -13,14 +13,7 @@ import { TbMap2 } from 'react-icons/tb';
 import { useRouter } from 'next/router';
 import { useColor } from '../../shared/hooks/use-color.hook';
 import BurgerMenuItem from './BurgerMenuItem';
-import {
-    BusinessOwnerData,
-    businessOwnerDataState,
-    ConsumerData,
-    consumerDataState,
-    UserInfo,
-    userInfoState,
-} from '../../shared/recoilStates/user.state';
+import { ConsumerData, UserInfo, userInfoState } from '../../shared/recoilStates/user.state';
 import { UserType } from '../../shared/enum/user-type.enum';
 import {
     ABOUT_PAGE,
@@ -39,16 +32,20 @@ import { axiosInstance } from '../../axios/axiosInstance';
 import { useAxios } from '../../shared/hooks/use-axios.hook';
 import { useErrorToast } from '../../shared/hooks/use-error-toast.hook';
 import { BurgerMenuItemComponent } from '../../shared/interfaces/BurgerMenuItemComponent';
+import { consumerDataState } from '../../shared/recoilStates/consumer.state';
+import { BusinessResponse } from '../../shared/interfaces/Business';
+import { allBusinessResponseState } from '../../shared/recoilStates/all-business.state';
 
 const BurgerMenu: FunctionComponent = () => {
     const { primaryColor, secondaryColor, backgroundGrayColor } = useColor();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [userInfo, setUserInfo] = useRecoilState<UserInfo>(userInfoState);
     const setConsumerData = useSetRecoilState<ConsumerData>(consumerDataState);
-    const setBusinessOwnerData = useSetRecoilState<BusinessOwnerData>(businessOwnerDataState);
+    const setAllBusinessState = useSetRecoilState<BusinessResponse[]>(allBusinessResponseState);
     const { handlePostRequest } = useAxios();
     const errorToast = useErrorToast();
     const router = useRouter();
+
     const changeRoute = useCallback(
         (route: string) => {
             router.push(`${route}`, undefined, { shallow: true });
@@ -83,7 +80,7 @@ const BurgerMenu: FunctionComponent = () => {
                             });
                         }
                         if (userInfo.userType === UserType.BUSINESS_OWNER) {
-                            setBusinessOwnerData({ all_business: undefined, all_reservations: undefined });
+                            setAllBusinessState([]);
                         }
                         setUserInfo({ userType: UserType.UNDEFINED_USER, userId: undefined });
                     }
@@ -102,7 +99,7 @@ const BurgerMenu: FunctionComponent = () => {
             changeRoute,
             errorToast,
             handlePostRequest,
-            setBusinessOwnerData,
+            setAllBusinessState,
             setConsumerData,
             setUserInfo,
             userInfo.userId,
@@ -110,14 +107,29 @@ const BurgerMenu: FunctionComponent = () => {
         ]
     );
     const menuItems: BurgerMenuItemComponent[] = [
-        { route: LANDING_PAGE, icon: SiOpenstreetmap, text: 'Search', show: true, changeRoute },
-        { route: EXPLORE_PAGE, icon: TbMap2, text: 'Explore', show: true, changeRoute },
+        {
+            route: LANDING_PAGE,
+            icon: SiOpenstreetmap,
+            text: 'Search',
+            show: true,
+            changeRoute,
+            isActive: router.pathname === LANDING_PAGE,
+        },
+        {
+            route: EXPLORE_PAGE,
+            icon: TbMap2,
+            text: 'Explore',
+            show: true,
+            changeRoute,
+            isActive: router.pathname === EXPLORE_PAGE,
+        },
         {
             route: ABOUT_PAGE,
             icon: BsInfoCircle,
             text: 'About',
             show: userInfo.userType === UserType.UNDEFINED_USER,
             changeRoute,
+            isActive: router.pathname === ABOUT_PAGE,
         },
         {
             route: REGISTER_PAGE,
@@ -125,6 +137,7 @@ const BurgerMenu: FunctionComponent = () => {
             text: 'Register',
             show: userInfo.userType === UserType.UNDEFINED_USER,
             changeRoute,
+            isActive: router.pathname === REGISTER_PAGE,
         },
         {
             route: LOGIN_PAGE,
@@ -132,6 +145,7 @@ const BurgerMenu: FunctionComponent = () => {
             text: 'Login',
             show: userInfo.userType === UserType.UNDEFINED_USER,
             changeRoute,
+            isActive: router.pathname === LOGIN_PAGE,
         },
         {
             route: FOLLOWED_PAGE,
@@ -140,6 +154,7 @@ const BurgerMenu: FunctionComponent = () => {
             show: userInfo.userType === UserType.CONSUMER,
             iconColor: 'yellow.400',
             changeRoute,
+            isActive: router.pathname === FOLLOWED_PAGE,
         },
         {
             route: BUSINESS_REGISTER_PAGE,
@@ -147,6 +162,7 @@ const BurgerMenu: FunctionComponent = () => {
             text: 'Register Business',
             show: userInfo.userType === UserType.BUSINESS_OWNER,
             changeRoute,
+            isActive: router.pathname === BUSINESS_REGISTER_PAGE,
         },
         {
             route: MANAGE_ALL_BUSINESS_PAGE,
@@ -154,6 +170,7 @@ const BurgerMenu: FunctionComponent = () => {
             text: 'Manage Business',
             show: userInfo.userType === UserType.BUSINESS_OWNER,
             changeRoute,
+            isActive: router.pathname === MANAGE_ALL_BUSINESS_PAGE,
         },
         {
             route: ALLERGIES_PAGE,
@@ -161,6 +178,7 @@ const BurgerMenu: FunctionComponent = () => {
             text: 'Allergies',
             show: userInfo.userType === UserType.CONSUMER,
             changeRoute,
+            isActive: router.pathname === ALLERGIES_PAGE,
         },
         {
             route: LOGOUT_PAGE,
@@ -168,6 +186,7 @@ const BurgerMenu: FunctionComponent = () => {
             text: 'Logout',
             show: userInfo.userType !== UserType.UNDEFINED_USER,
             changeRoute: handleLogout,
+            isActive: router.pathname === LOGOUT_PAGE,
         },
     ];
 
@@ -214,6 +233,7 @@ const BurgerMenu: FunctionComponent = () => {
                                                 text={item.text}
                                                 changeRoute={item.changeRoute}
                                                 iconColor={item.iconColor}
+                                                isActive={item.isActive}
                                             />
                                         )}
                                     </>

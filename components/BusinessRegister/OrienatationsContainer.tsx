@@ -21,8 +21,7 @@ const OrientationsContainer: FunctionComponent<Props> = ({ selectedOrientations,
             rowGap={8}
             w="100%"
             h="100%"
-            justifyItems="center"
-            mx="auto">
+            justifyItems="center">
             {allOrientations.map((orientation) => (
                 <OrientationTemplate
                     orientation={orientation}

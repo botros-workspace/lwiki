@@ -24,4 +24,4 @@ export const LOGOUT_PAGE = '/logout';
 export const BACKEND_LOGOUT_PAGE = '/logout/';
 export const BACKEND_LOGIN_PAGE = '/login/';
 export const BACKEND_REGISTER_PAGE = '/register/';
-export const BACKEND_GET_INDICATORS = '/get_indicators/';
+export const BACKEND_BUSINESS_REGISTER_PAGE = '/business_register/';

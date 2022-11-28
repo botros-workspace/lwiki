@@ -1,8 +1,7 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 import { IconType } from 'react-icons';
-import { Box, Button, Flex, Heading } from '@chakra-ui/react';
+import { Box, Button, Flex } from '@chakra-ui/react';
 import { Step, Steps, useSteps } from 'chakra-ui-steps';
-import { useRouter } from 'next/router';
 
 export interface StepComponent {
     label: string;
@@ -14,12 +13,24 @@ type Props = {
     color: string;
     canResetSteps: boolean;
     redirectLink?: string;
+    resultComponent: ReactNode;
+    onFinishClick: () => void;
+    onRegisterClick: () => void;
+    canRegister: boolean;
 };
-const StepsTemplate: FunctionComponent<Props> = ({ steps, color, canResetSteps = false, redirectLink }) => {
+const StepsTemplate: FunctionComponent<Props> = ({
+    steps,
+    color,
+    canResetSteps = false,
+    redirectLink,
+    resultComponent,
+    onFinishClick,
+    onRegisterClick,
+    canRegister,
+}) => {
     const { nextStep, prevStep, reset, activeStep } = useSteps({
         initialStep: 0,
     });
-    const router = useRouter();
 
     return (
         <Flex flexDir="column" alignSelf="center" w="95%" h={{ base: 'auto', md: '95vh' }}>
@@ -41,20 +52,16 @@ const StepsTemplate: FunctionComponent<Props> = ({ steps, color, canResetSteps =
 
             {activeStep === steps.length ? (
                 <Flex px={4} py={4} flexDirection="column" h={{ base: 'auto', md: '81vh' }}>
-                    <Box h={{ base: 'auto', md: '70vh' }}>
-                        <Heading fontSize="xl" textAlign="center">
-                            Woohoo! All steps completed!
-                        </Heading>
-                    </Box>
-                    <Flex alignSelf="center" mt={4}>
+                    <Box h={{ base: 'auto', md: '70vh' }}>{resultComponent}</Box>
+                    <Flex alignSelf="center" mt={4} gap={4}>
                         {canResetSteps && (
-                            <Button mx="auto" size="sm" onClick={reset}>
-                                Reset
+                            <Button mx="auto" size="sm" onClick={reset} variant="ghost">
+                                Edit
                             </Button>
                         )}
-                        {redirectLink && (
-                            <Button onClickCapture={() => router.push(redirectLink)} size="sm" onClick={reset} mr={4}>
-                                Redirect
+                        {!redirectLink && (
+                            <Button size="sm" onClick={onRegisterClick} mr={4} disabled={!canRegister}>
+                                Register
                             </Button>
                         )}
                     </Flex>
@@ -64,7 +71,9 @@ const StepsTemplate: FunctionComponent<Props> = ({ steps, color, canResetSteps =
                     <Button isDisabled={activeStep === 0} mr={4} onClick={prevStep} size="sm" variant="ghost">
                         Prev
                     </Button>
-                    <Button size="sm" onClick={nextStep}>
+                    <Button
+                        size="sm"
+                        onClick={() => (activeStep === steps.length - 1 ? (onFinishClick(), nextStep()) : nextStep())}>
                         {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                     </Button>
                 </Flex>

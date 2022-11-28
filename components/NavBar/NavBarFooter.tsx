@@ -5,7 +5,8 @@ import { MdDarkMode } from 'react-icons/md';
 import { useRecoilValue } from 'recoil';
 import { BASE_URL } from '../../shared/constants/endpoints';
 import { UserType } from '../../shared/enum/user-type.enum';
-import { ConsumerData, consumerDataState, UserInfo, userInfoState } from '../../shared/recoilStates/user.state';
+import { consumerDataState } from '../../shared/recoilStates/consumer.state';
+import { ConsumerData, UserInfo, userInfoState } from '../../shared/recoilStates/user.state';
 import TooltipTemplate from '../Shared/TooltipTemplate';
 
 const NavBarFooter: FunctionComponent = () => {
